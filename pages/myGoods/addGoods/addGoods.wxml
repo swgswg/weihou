@@ -1,0 +1,175 @@
+<view class="content">
+    <scroll-view scroll-y style='width:100%;height:100%'>
+        <form bindsubmit="formSubmit">
+            <view>
+                <view>上架新商品</view>
+                <view>添加套餐</view>
+            </view>
+            <view hidden='{{newGoods}}'>
+                <view>
+                    <view class="big-title">商品关键信息</view>
+                    <view class="info">
+                        <view class="info-each">
+                            <view class='sm-title'>商品分类</view>
+                            <view class='sm-content'>
+                                <radio-group name="groupId" class="radio-group" bindchange="radioChange">
+                                    <block wx:for="{{category}}" wx:key="{{item.classId}}">
+                                        <view class='sm-content-text'>
+                                            <radio value="{{item.classId}}" />{{item.className}}</view>
+                                    </block>
+                                </radio-group>
+                            </view>
+                            <!-- <view class='sm-content sm-content2'>
+                            <radio-group class="radio-group" bindchange="radioChange">
+                                <block wx:for="{{[1,2,3,4,5,6]}}">
+                                    <view class='sm-content-text2'><radio value="1" />123</view>
+                                </block>
+                            </radio-group>
+                        </view> -->
+                            <view style='clear:both'></view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>商品标签</view>
+                            <view class='sm-content'>
+                                <checkbox-group name="tag" bindchange="checkboxChange">
+                                    <label class="checkbox" wx:for="{{[1,2,3,4]}}">
+                                        <checkbox value="{{index}}" checked="" />456
+                                    </label>
+                                </checkbox-group>
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>商品类型</view>
+                            <view class='sm-content'>
+                                <radio-group class="radio-group" bindchange="radioChange">
+                                    <label>
+                                        <radio value="1" />普通商品
+                                    </label>
+                                    <label>
+                                        <radio value="2" />进口商品
+                                    </label>
+                                    <label>
+                                        <radio value="3" />直供商品
+                                    </label>
+                                </radio-group>
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>是否预售</view>
+                            <view class='sm-content'>
+                                <radio-group class="radio-group" bindchange="radioChange">
+                                    <label>
+                                        <radio value="yes" />是
+                                    </label>
+                                    <label>
+                                        <radio value="no" />否
+                                    </label>
+                                </radio-group>
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>
+                                发货时间承诺
+                            </view>
+                            <view class='sm-content'>
+                                <radio-group class="radio-group" bindchange="radioChange">
+                                    <label>
+                                        <radio value="yes" />48小时内
+                                    </label>
+                                    <label>
+                                        <radio value="no" />24小时内
+                                    </label>
+                                </radio-group>
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>七天无理由退换货</view>
+                            <view class='sm-content'>
+                                <radio-group class="radio-group" bindchange="radioChange">
+                                    <label>
+                                        <radio value="yes" />是
+                                    </label>
+                                    <label>
+                                        <radio value="no" />否
+                                    </label>
+                                </radio-group>
+                            </view>
+                            <view class='attention'>注意：只有内衣裤袜、保质期在1个月以内的短保商品、直供直邮商品、水果可以选择“否”。</view>
+                        </view>
+                    </view>
+                </view>
+                <view>
+                    <view class='big-title'>商品详细信息</view>
+                    <view class='info'>
+                        <view class="info-each">
+                            <view class='sm-title'>商品名称</view>
+                            <view class='sm-content'>
+                                <input name="goodsName" placeholder='请输入商品名称' />
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>价格</view>
+                            <view class='sm-content'>
+                                <input name="price" placeholder='请输入价格' />
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>库存</view>
+                            <view class='sm-content'>
+                                <input name="stock" placeholder='请输入价格' />
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>描述</view>
+                            <view class='sm-content'>
+                                <textarea name="goodsDetails" placeholder='请输入商品描述'></textarea>
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>商品规格</view>
+                            <view class='sm-content'>
+                                <textarea placeholder='请输入商品描述'></textarea>
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>商品列表图片</view>
+                            <view class='sm-content'>
+                                <view class='img list-img' wx:if="{{list_img}}">
+                                    <image src="/images/addimage.png" />
+                                    <view class='cancle-img'>x</view>
+                                </view>
+                                <image wx:if="{{!list_img}}" src="/images/addimage.png" />
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>轮播图</view>
+                            <view class='sm-content'>
+                                <view wx:if="{{swiper_img}}" class="img swiper-img">
+                                    <image src="/images/addimage.png" />
+                                    <view class='cancle-img'>x</view>
+                                </view>
+                                <image hidden='{{swiper_img_hidden}}' src="/images/addimage.png" />
+                            </view>
+                        </view>
+                        <view class="info-each">
+                            <view class='sm-title'>商品详细信息图片</view>
+                            <view class='sm-content'>
+                                <view class="img detail-img">
+                                    <image src="/images/addimage.png" />
+                                    <view class='cancle-img'>x</view>
+                                </view>
+                                <image src="/images/addimage.png" />
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view hidden='{{groupGoods}}'>
+
+            </view>
+            <view style='padding:20rpx;box-sizing:boeder-box;'>
+                <button form-type="submit" type="primary" >提交</button>
+            </view>
+        </form>
+    </scroll-view>
+</view>

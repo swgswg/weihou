@@ -1,0 +1,66 @@
+{
+    "pages":[
+        "pages/moneyManage/moneyManage",
+        "pages/orderManage/orderManage",
+        "pages/orderManage/returnGoods/returnGoods",
+        "pages/orderManage/exchangeGoods/exchangeGoods",
+        "pages/myGoods/goodsList/goodsList",
+        "pages/myGoods/goodsDetail/goodsDetail",
+        "pages/myGoods/addGoods/addGoods",
+        "pages/myGoods/editGoods/editGoods",
+        "pages/orderManage/orderDeatail/orderDeatail",
+        
+        "pages/myself/myself",
+        "pages/myself/myMoney/myMoney",
+        "pages/myself/myMoney/moneyDeatail/moneyDeatail",
+        "pages/myself/modifyPassword/modifyPassword",
+        "pages/myself/directionsForUse/directionsForUse",
+        "pages/myself/feedBack/feedBack",
+        "pages/login/login",
+        "pages/icon/iconList/iconList",
+        "pages/logs/logs"
+        
+    ],
+    "window":{
+        "backgroundTextStyle":"light",
+        "navigationBarBackgroundColor": "#35495D",
+        "navigationBarTitleText": "",
+        "navigationBarTextStyle":"white"
+    },
+    "tabBar": {
+        "color": "#888888",
+        "selectedColor": "#09BB07",
+        "backgroundColor": "",
+        "borderStyle": "white",
+        "list": [
+        {
+            "pagePath": "pages/myGoods/goodsList/goodsList",
+            "text": "我的商品",
+            "iconPath": "images/sellgoods.png",
+            "selectedIconPath": "images/sellgoods_r.png"
+        },
+        {
+            "pagePath": "pages/orderManage/orderManage",
+            "text": "订单管理",
+            "iconPath": "images/order.png",
+            "selectedIconPath": "images/order_r.png"
+        },
+        {
+            "pagePath": "pages/moneyManage/moneyManage",
+            "text": "财务管理",
+            "iconPath": "images/money.png",
+            "selectedIconPath": "images/money_r.png"
+        },
+        {
+            "pagePath": "pages/myself/myself",
+            "text": "我的商户",
+            "iconPath": "images/people.png",
+            "selectedIconPath": "images/people_r.png"
+        }
+        ]
+    },
+    "networkTimeout": {
+        "request": 10000,
+        "downloadFile": 10000
+    }
+}

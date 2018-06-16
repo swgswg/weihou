@@ -1,0 +1,39 @@
+<view class="exchange-goods">
+    <view class="exchange-goods-point">
+        <view><text class="iconfont icon-xingjiline"></text></view>
+        <view class='exchange-goods-point-text'>申请换货</view>
+    </view>
+    <view class="line"></view>
+    <view class="exchange-goods-point">
+        <view><text class="iconfont  {{(exchange.back_status == 3) ? 'icon-xingjiline': 'icon-xingjifull'}}"></text> </view>
+        <view>换货中</view>
+    </view>
+    <view class="line"></view>
+     <view class="exchange-goods-point">
+        <view><text class="iconfont {{(exchange.back_status == 3) ? 'icon-xingjifull': 'icon-xingjiline'}}"></text></view>
+        <view>换货完成</view>
+    </view>
+</view> 
+<view class="goods">
+    <view class="text1">商品详情</view>
+    <view class="info">
+        <image class='info-img' />
+        <view class="info-text">
+            <view>{{exchange.goods_name}}</view>
+            <view><text>颜色分类</text><text>尺寸</text></view>
+             <view style='color:red;'>价格¥{{exchange.price}}</view>
+        </view> 
+    </view>
+</view>
+<view class='goods'>
+    <view class='text1'>订单详情</view>
+    <view class="test2">订单号：{{exchange.order_uuid}}</view>
+    <view class="test2">订单生成时间：{{exchange.createTime}}</view>
+    <view class="test2">支付方式：{{}}</view>
+</view>
+<view class='goods'>
+    <view class='text1'>换货详情</view>
+    <view class="test2">申请时间：{{exchange.replyTime}}</view>
+    <!-- <view class="test2">物流单号</view> -->
+    <view class="test2">换货原因：{{exchange.reason}}</view>
+</view>

@@ -1,0 +1,39 @@
+<view class="exchange-goods">
+    <view class="exchange-goods-point">
+        <view><text class="iconfont icon-xingjiline"></text></view>
+        <view class='exchange-goods-point-text'>申请退货</view>
+    </view>
+    <view class="line"></view>
+    <view class="exchange-goods-point">
+        <view><text class="iconfont {{returnGoods.back_status != 3 ? 'icon-xingjifull':'icon-xingjiline'}}"></text> </view>
+        <view>退货中</view>
+    </view>
+    <view class="line"></view>
+     <view class="exchange-goods-point">
+        <view><text class="iconfont {{returnGoods.back_status != 3 ? 'icon-xingjifull':'icon-xingjiline'}}"></text></view>
+        <view>退货完成</view>
+    </view>
+</view> 
+<view class="goods">
+    <view class="text1">商品详情</view>
+    <view class="info">
+        <image class='info-img' />
+        <view class="info-text">
+            <view>{{returnGoods.goods_name}}</view>
+            <view><text>颜色分类</text><text>尺寸</text></view>
+             <view style='color:red;'>价格¥{{returnGoods.price}}</view>
+        </view> 
+    </view>
+</view>
+<view class='goods'>
+    <view class='text1'>订单详情</view>
+    <view class="test2">订单号：{{returnGoods.order_uuid}}</view>
+    <view class="test2">订单生成时间：{{returnGoods.createTime}}</view>
+    <view class="test2">支付方式：{{}}</view>
+</view>
+<view class='goods'>
+    <view class='text1'>退货详情</view>
+    <view class="test2">申请时间：{{returnGoods.replyTime}}</view>
+     <view class="test2">退款金额：{{returnGoods.back_price}}</view> 
+    <view class="test2">换货原因：{{returnGoods.reason}}</view>
+</view>
