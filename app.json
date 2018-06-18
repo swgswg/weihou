@@ -1,5 +1,6 @@
 {
     "pages":[
+        "pages/moneyManage/moneyDetail/moneyDetail",
         "pages/moneyManage/moneyManage",
         "pages/orderManage/orderManage",
         "pages/orderManage/returnGoods/returnGoods",

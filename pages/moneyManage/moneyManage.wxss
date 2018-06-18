@@ -141,4 +141,13 @@ tableViewCellStyle {
     align-items: center;
     color: #ed7321;
 }
-
+.po-re{
+    position: relative;
+}
+.po-ab{
+    position: absolute;
+}
+.t20-l20{
+    top: 20rpx;
+    left:20rpx;
+}

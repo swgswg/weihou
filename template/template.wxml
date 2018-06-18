@@ -1,0 +1,27 @@
+<template name="tabBar">
+    <view class="tabBar">
+        <block wx:for="{{tabBar}}" wx:for-item="item" wx:key="tabBar">
+            <view class="tabBar-item">
+                <navigator open-type="redirect" url="{{item.pagePath}}">
+                    <view><image class="icon" src='{{item.iconPath}}'></image></view>
+                    <view class="tabBartext">{{item.text}}</view>
+                </navigator>  
+            </view>
+        </block>
+    </view>
+</template>
+<template name="selectNav">
+    <view class="selectNav">
+        <block wx:for="{{selectNav.nav}}" wx:for-item="nav" wx:key="{{index}}">
+            <view class="selectNav-item">{{nav}}</view>
+        </block>
+    </view>
+    <view class='selectNav-list'>
+        <block wx:for="{{selectNav.list}}" wx:for-item="list" wx:key="{{index}}">
+            <view>  
+                {{list}}
+            </view>
+        
+        </block>
+    </view>
+</template>

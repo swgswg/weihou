@@ -1,8 +1,9 @@
 <view class="columnStyle container" bindscrolltoupper="upper" bindscrolltolower="lower">
     <view class="heightAndWidth">
-        <view class="flexItem columnStyle heightAndWidth   centers">
+        <view class="flexItem columnStyle heightAndWidth centers po-re">
             <label class="totalIncomeNote color999 fontSize10">实收金额合计</label>
             <label class="totalIncomeValue marginTop10">￥ {{ totalIncome }}</label>
+            <view class='po-ab t20-l20 button button-primary button-rounded button-wx-tiny'>查看营业详情</view>
         </view>
         <view class="flexItem rowStyle heightAndWidth composeIncome">
             <view class="flexItem columnStyle centers marginTop15 marginBottom15">
