@@ -180,14 +180,16 @@ module.exports = {
             },
             success: function (res) {
                 // console.log(res);
-                if (res.data.message == 'ok') {
-                    mysufun(res.data.data);
-                } else {
-                    wx.showToast({
-                        icon: 'none',
-                        title: res.data.message
-                    });
-                }
+                // if (res.data.message == 'ok') {
+                //     mysufun(res.data.data);
+                // } else {
+                //     mysufun(res.data.message);
+                //     // wx.showToast({
+                //     //     icon: 'none',
+                //     //     title: res.data.message
+                //     // });
+                // }
+                mysufun(res.data);
             }
         });
     },
@@ -217,16 +219,16 @@ module.exports = {
     },
 	
     // 添加商品
-    insertGoods: function (data){
+    insertGoods: function (data, pageobj, callback){
         this.requestUrl(data, urlData.insertGoodsUrl, pageobj, callback);
     },  
-    // 修改商品
-    // 删除商品
+
+    
     // 查询商品详情
     getGoodsDetails: function (goodsid,pageobj, callback){
         this.requestUrl({ goodsId: goodsid }, urlData.getGoodsDetailsUrl, pageobj, callback);
     },
-    // 上架/下架商品 0下架,1上架
+    // 上架/下架商品 0审核,1上架,2下架,3强制下架,4删除  // 修改商品   // 删除商品
     deleteGoods: function (goodsid, isuse, pageobj, callback){
         let data = {
             goodsId: goodsid, 
@@ -445,9 +447,18 @@ module.exports = {
         let data = {
             order_uuid: myorder_uuid,
             transNO: mytransNO,
-            shortName: myshortName
+            shortName: myshortName,
+            status:3
         }
         this.requestUrl(data, urlData.insertTransInfoUrl, pageobj, callback);   
+    },
+
+    // 获取单个物流信息
+    getTransInfo: function (myorder_uuid, pageobj, callback){
+        let data = {
+            order_uuid: myorder_uuid,
+        }
+        this.requestUrl(data, urlData.getTransInfoUrl, pageobj, callback);   
     },
 }   
 

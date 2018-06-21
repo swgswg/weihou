@@ -13,7 +13,7 @@
             <label class="font-size16 tixianNote normalColor">提现至</label>
         </view>
         <label class="floatLeft lineSpace"></label>
-        <view class="height44">
+        <view class="height44" bindtap='changeBankCard'>
             <label class="font-size12 floatLeft margin-left12 normalColor">银行卡</label>
             <label class="font-size14 floatRight bankCard margin-right12">成都银行 1234**********3434</label>
         </view>

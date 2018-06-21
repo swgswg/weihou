@@ -190,7 +190,7 @@ Page({
     selectFun: function (data){
         let that = this;
         // 条件查询商品列表
-        funData.requestUrl(data, urlData.getGoodsUrl, this, (data) => {
+        funData.requestUrl(data, urlData.getGoodsUrl, that, (data) => {
             // console.log(data);
             that.setData({
                 goods_data: data.PageInfo.list,
@@ -211,7 +211,13 @@ Page({
                 if (res.confirm) {
                     let goodsId = e.currentTarget.dataset.goodsid;
                     // console.log(goodsId);
-                    
+                    funData.deleteGoods(goodsId,4,that,()=>{
+                        wx.showToast({
+                            title: '删除成功',
+                            icon: 'success',
+                            duration: 1000
+                        })
+                    });
                 } else if (res.cancel) {
                     
                 }

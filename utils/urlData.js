@@ -10,11 +10,11 @@ module.exports = {
     getGoodsUrl: baseUrl + 'MicroPlatform/goods/getGoods',
     // 添加商品
     insertGoodsUrl: baseUrl + 'MicroPlatform/goods/insertGoods',
-    // 修改商品
-    // 删除商品
+    // 修改商品 // 删除商品 都是对商品状态修改
+    // deleteGoodsUrl: baseUrl +'MicroPlatform/goods/deleteGoods',
     // 查询商品详情
     getGoodsDetailsUrl: baseUrl + 'MicroPlatform/goods/getGoodsDetails',
-    // 上架/下架商品
+    // 上架/下架商品  // 修改商品 // 删除商品 都是对商品状态修改
     deleteGoodsUrl: baseUrl +'MicroPlatform/goods/deleteGoods',
     // 查询分组(给店铺用)
     getGroupUrl: baseUrl + 'MicroPlatform/group/getGroup',
@@ -50,6 +50,8 @@ module.exports = {
     insertCardUrl: baseUrl +'MicroPlatform/shop/insertCard',
     // 删除银行卡
     deleteCardUrl: baseUrl +'MicroPlatform/shop/deleteCard',
-    // 添加物流信息
+    // 添加单个物流信息
     insertTransInfoUrl: baseUrl +'transInfo/insertTransInfo',
+    // 获取单个物流信息
+    getTransInfoUrl: baseUrl +'MicroPlatform/transInfo/getTransInfo',
 }

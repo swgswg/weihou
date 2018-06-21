@@ -203,13 +203,19 @@ Page({
         }
         goods.img = img;
         goods.status = status;
+        goods.shopCode = app.globalData.shopCode;
         console.log(goods);
         // 添加商品
-        funData.insertGoods(data, that, ()=>{
+        funData.insertGoods(goods, that, ()=>{
             wx.showToast({
                 title: '添加成功',
                 icon: 'success',
-                duration: 1000
+                duration: 1000,
+                success:function(){
+                    wx.switchTab({
+                        url: '/pages/myGoods/goodsList/goodsList'
+                    })
+                }
             });
         });
     },
