@@ -1,6 +1,8 @@
 const urlData = require('./urlData.js');
 const util = require('./util.js');
 const calculate = require('./calculate.js');
+const env = require('../weixinFileToaliyun/env.js');
+const uploadAliyun = require('../weixinFileToaliyun/uploadAliyun.js');
 const app = getApp();
 module.exports = {
     /**
@@ -28,7 +30,7 @@ module.exports = {
     },
 
     /**
-     * wx.request二次封装
+     * wx.request二次封装 post请求
      */
     requestUrl: function (data, url, pageobj,callback) {
 		wx.request({
@@ -87,6 +89,111 @@ module.exports = {
 		})
 	},
     
+    /**
+     * 上传图片二次封装
+     */
+    myUpload: function (sufun){
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'],
+            sourceType: ['album', 'camera'],
+            // 上传文件
+            success: function (res) {
+                // console.log(res)
+                let tempFilePaths = res.tempFilePaths;
+                // 临时文件路径
+                let filePath = tempFilePaths[0];
+                let ext = filePath.slice(filePath.lastIndexOf('.')+1);
+                let extArr = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'tiff'];
+                // console.log(extArr.indexOf(ext));
+                if (extArr.indexOf(ext) != -1) {
+                    // 上传文件
+                    uploadAliyun(filePath, function (fileNmae) {
+                        let newsrc = env.aliyunServerURL + fileNmae;
+                        // console.log(env.aliyunServerURL);
+                        console.log(newsrc);
+                        // that.setData({
+                        //     profile: newsrc
+                        // });
+                        sufun(newsrc, fileNmae);
+                        // 头像上传数据库
+                        // util.myWxRequest(app.globalData.updateUserInfoPhotoUrl, { photo: fileNmae }, function (res) {
+                        //     wx.showToast({
+                        //         icon: 'success',
+                        //         title: '修改成功'
+                        //     });
+                        // })
+                    }, function () { });
+                } else {
+                    wx.showToast({
+                        title: '图片格式不正确',
+                        icon: 'none'
+                    })
+                }
+
+            }
+        })
+    },
+
+    /**
+     * 查询快递
+     */
+    inquiryExpress: function (mytype, mypostid, mysufun){
+        switch (mytype){
+            case '中通':
+            case '中通快递': 
+                mytype = 'zhongtong';
+                break;
+            case '申通':
+            case '申通快递': 
+                mytype = 'shentong';
+                break;
+            case '韵达':
+            case '韵达快递': 
+                mytype = 'yunda';
+                break;
+            case '圆通':
+            case '圆通快递': 
+                mytype = 'yuantong';
+                break;
+            case '顺丰':
+            case '顺丰快递':
+                mytype = 'shunfeng';
+                break;
+        }   
+        // let mydata = {
+        //     type: 'zhongtong',
+        //     // postid:211119071939
+        //     postid:210772407168
+
+        //     // temp:0.14004732217384586
+        // };
+        wx.request({
+            url: 'http://www.kuaidi100.com/query',
+            method: 'GET',
+            data: {
+                type:mytype,
+                postid:mypostid
+            },
+            header: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            success: function (res) {
+                // console.log(res);
+                if (res.data.message == 'ok') {
+                    mysufun(res.data.data);
+                } else {
+                    wx.showToast({
+                        icon: 'none',
+                        title: res.data.message
+                    });
+                }
+            }
+        });
+    },
+    
+
+
 	// getShareData: function(mmodule, callback, pageobj) {
 	// 	let that = this;
 	// 	let data = {
@@ -136,7 +243,7 @@ module.exports = {
         let data = {
             groupId: groupid
         }
-        this.requestUrl(data, urlData.getClassUrlyu, pageobj, callback);
+        this.requestUrl(data, urlData.getClassUrl, pageobj, callback);
     },
     // 查询商品对应的评论
     getComment: function (goodsid, pageobj, callback){
@@ -225,18 +332,123 @@ module.exports = {
         this.requestUrl(data, urlData.getGoodBackUrl, pageobj, callback);
     },
 
+    // 查询售卖总金额
+    getOrderMoney: function (shopCode, pageobj, callback){
+        let data = {
+            shop_code: shopCode
+        }
+        this.requestUrl(data, urlData.getOrderMoneyUrl, pageobj, callback);
+    },
 
+    // 查询每笔订单的金额
+    getOneOrderMoney: function (shopCode, mypage, mypageSize, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+            page:mypage,
+            pageSize: mypageSize
+        }
+        this.requestUrl(data, urlData.getOneOrderMoneyUrl, pageobj, callback);
+    },
 
+    // 按天查询订单金额
+    getMoneyByDay: function (shopCode, myyear, mymonth, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+            year:myyear,
+            month:mymonth
+        }
+        this.requestUrl(data, urlData.getMoneyByDayUrl, pageobj, callback);
+    },
 
+    // 按月查询订单金额
+    getMoneyByMonth: function (shopCode, myyear, pageobj, callback) {
+        let data = {
+            shop_code: shopCode,
+            year: myyear,
+        }
+        this.requestUrl(data, urlData.getMoneyByDayUrl, pageobj, callback);
+    },
+    // 修改商家logo信息
+    updateInfoLogo: function (shopCode, mylogo, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+            logo: mylogo,
+        }
+        this.requestUrl(data, urlData.updateInfoUrl, pageobj, callback);
+    },
+    // 修改商家信息 名称,手机,地址
+    updateInfo: function (shopCode, myshop_name, myshop_addr, mymobile, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+            shop_name: myshop_name,
+            shop_addr: myshop_addr,
+            mobile: mymobile
+        }
+        this.requestUrl(data, urlData.updateInfoUrl, pageobj, callback);
+    },
 
+    // 查询商家信息
+    getShop: function (shopCode, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+            page:1,
+            pageSize:1
+        }
+        this.requestUrl(data, urlData.getShopUrl, pageobj, callback);
+    },
 
+    // 查看单个商店信息
+    getShopByCode: function (shopCode, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+        }
+        this.requestUrl(data, urlData.getShopByCodeurl, pageobj, callback);
+    },
 
+    // 查所有银行卡
+    getCardByCode: function (shopCode, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+        }
+        this.requestUrl(data, urlData.getCardByCodeUrl, pageobj, callback);        
+    },
 
+    // 设为默认银行卡
+    updateCardDefault: function (cid, pageobj, callback){
+        let data = {
+           cid: cid,
+        }
+        this.requestUrl(data, urlData.updateCardDefaultUrl, pageobj, callback);     
+    },
 
+    // 添加银行卡
+    insertCard: function (shopCode, myowner, myID_card, mycard_no, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+            owner: myowner,
+            ID_card: myID_card,
+            card_no: mycard_no
+        }
+        this.requestUrl(data, urlData.insertCardUrl, pageobj, callback);     
+    },
 
+    // 删除银行卡
+    deleteCard: function (mycard_id, pageobj, callback){
+        let data = {
+            card_id: mycard_id
+        }
+        this.requestUrl(data, urlData.deleteCardUrl, pageobj, callback);   
+    },
 
-
-
+    // 添加物流信息
+    insertTransInfo: function (myorder_uuid, mytransNO, myshortName, pageobj, callback){
+        let data = {
+            order_uuid: myorder_uuid,
+            transNO: mytransNO,
+            shortName: myshortName
+        }
+        this.requestUrl(data, urlData.insertTransInfoUrl, pageobj, callback);   
+    },
 }   
 
 

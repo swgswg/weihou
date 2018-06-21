@@ -32,7 +32,7 @@
                             <view class='sm-title'>商品标签</view>
                             <view class='sm-content'>
                                 <checkbox-group name="tag" bindchange="checkboxChange">
-                                    <label class="checkbox" wx:for="{{[1,2,3,4]}}">
+                                    <label class="checkbox" wx:for="{{[1,2,3,4]}}" wx:key="{{item.index}}">
                                         <checkbox value="{{index}}" checked="" />456
                                     </label>
                                 </checkbox-group>
@@ -116,7 +116,7 @@
                         <view class="info-each">
                             <view class='sm-title'>库存</view>
                             <view class='sm-content'>
-                                <input name="stock" placeholder='请输入价格' />
+                                <input name="stock" placeholder='请输入库存数量' />
                             </view>
                         </view>
                         <view class="info-each">
@@ -134,31 +134,41 @@
                         <view class="info-each">
                             <view class='sm-title'>商品列表图片</view>
                             <view class='sm-content'>
-                                <view class='img list-img' wx:if="{{list_img}}">
-                                    <image src="/images/addimage.png" />
-                                    <view class='cancle-img'>x</view>
-                                </view>
-                                <image wx:if="{{!list_img}}" src="/images/addimage.png" />
+                                <block wx:for="{{list_img}}" wx:key="{{item.index}}">
+                                    <view class='img list-img'>
+                                        <image src="{{aliyunUrl + item}}" />
+                                        <view catchtap='cancleImg' data-status='1' data-index = '{{index}}'  class='cancle-img'>x</view>
+                                    </view>
+                                </block>
+                                <image catchtap='addlistImg' wx:if="{{list_img_hidden}}" src="/images/addimage.png" />
                             </view>
                         </view>
                         <view class="info-each">
                             <view class='sm-title'>轮播图</view>
                             <view class='sm-content'>
-                                <view wx:if="{{swiper_img}}" class="img swiper-img">
-                                    <image src="/images/addimage.png" />
-                                    <view class='cancle-img'>x</view>
-                                </view>
-                                <image hidden='{{swiper_img_hidden}}' src="/images/addimage.png" />
+                                <!-- <block wx:if="{{swiper_img_hidden}}"> -->
+                                    <block wx:for="{{swiper_img}}" wx:key="{{item.index}}">
+                                        <view  class="img swiper-img">
+                                            <image src="{{aliyunUrl + item}}" />
+                                            <view catchtap='cancleImg' data-status='2' data-index = '{{index}}' class='cancle-img'>x</view>
+                                        </view>
+                                    </block>
+                                <!-- </block> -->
+                                <image catchtap='addswiperImg' wx:if='{{swiper_img_hidden}}' src="/images/addimage.png" />
                             </view>
                         </view>
                         <view class="info-each">
                             <view class='sm-title'>商品详细信息图片</view>
                             <view class='sm-content'>
-                                <view class="img detail-img">
-                                    <image src="/images/addimage.png" />
-                                    <view class='cancle-img'>x</view>
-                                </view>
-                                <image src="/images/addimage.png" />
+                                <!-- <blcok wx:if="{{goodsDetail_img_hidden}}"> -->
+                                    <block wx:for="{{goodsDetail_img}}" wx:key="{{item.index}}">
+                                        <view class="img detail-img">
+                                            <image src="{{aliyunUrl + item}}" />
+                                            <view catchtap='cancleImg' data-status='3' data-index = '{{index}}'  class='cancle-img'>x</view>
+                                        </view>
+                                    </block>
+                                <!-- </block> -->
+                                <image catchtap='addgoodsDetailImg' wx:if='{{goodsDetail_img_hidden}}' src="/images/addimage.png" />
                             </view>
                         </view>
                     </view>

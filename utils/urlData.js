@@ -1,5 +1,5 @@
-const baseUrl = "http://39.107.70.80:8080/";
-// const baseUrl = "http://192.168.3.136:8080/";
+// const baseUrl = "http://39.107.70.80:8080/";
+const baseUrl = "http://192.168.3.157:8080/";
 module.exports = {
     uploadFileUrl: 'http://jiaoyuvideo.oss-cn-beijing.aliyuncs.com/',
     baseUrl: baseUrl,
@@ -30,4 +30,26 @@ module.exports = {
     getOrderDetailUrl: baseUrl +'MicroPlatform/order/getOrderDetail',
     // 查询退换货
     getGoodBackUrl: baseUrl +'MicroPlatform/goodsBack/getGoodBack',
+    // 查询总售卖金额
+    getOrderMoneyUrl: baseUrl +'MicroPlatform/order/getOrderMoney',
+    // 查询每笔订单的金额
+    getOneOrderMoneyUrl: baseUrl + 'MicroPlatform/order/getOneOrderMoney',
+    // 按天/月查询订单金额
+    getMoneyByDayUrl: baseUrl + 'MicroPlatform/order/getMoneyByDay',
+    // 修改商家信息
+    updateInfoUrl: baseUrl +'MicroPlatform/shop/updateInfo',
+    // 查询商家信息
+    getShopUrl: baseUrl +'MicroPlatform/shop/getShop',
+    // 查询单个商家信息
+    getShopByCodeurl: baseUrl +'MicroPlatform/shop/getShopByCode',
+    // 查所有银行卡
+    getCardByCodeUrl: baseUrl +'MicroPlatform/shop/getCardByCode',
+    // 设为默认银行卡
+    updateCardDefaultUrl: baseUrl +'MicroPlatform/shop/updateCardDefault',
+    // 添加银行卡
+    insertCardUrl: baseUrl +'MicroPlatform/shop/insertCard',
+    // 删除银行卡
+    deleteCardUrl: baseUrl +'MicroPlatform/shop/deleteCard',
+    // 添加物流信息
+    insertTransInfoUrl: baseUrl +'transInfo/insertTransInfo',
 }

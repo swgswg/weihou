@@ -82,21 +82,24 @@ function tabbarmain(bindName = "tabdata", id, target,flag) {
 /**
  * 菜单栏
  */
-function selectNavinit(){
-    return {
-        'nav':['营业额','净利润'],
-        'list':['一月','二月', '三月']
-    }
-}
-function selectNav(bindName = "selectNav", target) {
-    let that = target;
-    let bindData = {};
-    let otabbar = selectNavinit();
-    bindData[bindName] = otabbar;
-    that.setData({ bindData });
-}
+// function selectNavinit(){
+//     return {
+//         'nav':['营业额','净利润'],
+//         'list':[
+//             ['一月','二月', '三月'],
+//             ['一月', '二月', '三月']
+//         ],
+//     }
+// }
+// function selectNav(bindName = "selectNav", target) {
+//     let that = target;
+//     let bindData = {};
+//     let otabbar = selectNavinit();
+//     bindData[bindName] = otabbar;
+//     that.setData({ bindData });
+// }
 
 module.exports = {
     tabbar: tabbarmain,
-    selectNav: selectNav
+    // selectNav: selectNav
 }

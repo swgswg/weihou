@@ -22,6 +22,7 @@
   </view> -->
     <navigator url="/pages/myGoods/addGoods/addGoods" bindtap='addGoods' class='m10 button button-primary button-rounded  button-wx-small'>添加新商品</navigator>
     <text bindtap="select_goods_list" data-stype="shenhe" class='button button-action button-rounded  button-wx-small'>审核中</text>
+    <text bindtap="select_goods_list" data-stype="qiangzhixiajia" class='ml10 button button-highlight button-rounded button-wx-small'>强制下架</text>
     <!--filter end-->
 
     <!--list start-->
@@ -30,7 +31,7 @@
             <block wx:for="{{goods_data}}" wx:key="{{item.goodsId}}">
                 <view class="m-item flex" id="{{item.goodsId}}">
                     <view class="m-imgbox">
-                        <image src="{{upload_file_url+item.img}}" class="m-img" mode="aspectFill"></image>
+                        <image src="{{aliyunUrl+item.img}}" class="m-img" mode="aspectFill"></image>
                     </view>
                     <view class="sub flex flexC ml20 m-box">
                         <view class="m-tit lineText2">

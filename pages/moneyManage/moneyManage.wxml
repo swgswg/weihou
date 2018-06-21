@@ -1,9 +1,9 @@
-<view class="columnStyle container" bindscrolltoupper="upper" bindscrolltolower="lower">
+<view class="columnStyle container" >
     <view class="heightAndWidth">
         <view class="flexItem columnStyle heightAndWidth centers po-re">
             <label class="totalIncomeNote color999 fontSize10">实收金额合计</label>
             <label class="totalIncomeValue marginTop10">￥ {{ totalIncome }}</label>
-            <view class='po-ab t20-l20 button button-primary button-rounded button-wx-tiny'>查看营业详情</view>
+            <navigator url="/pages/moneyManage/moneyDetail/moneyDetail" class='po-ab t20-l20 button button-primary button-rounded button-wx-tiny'>查看营业详情</navigator>
         </view>
         <view class="flexItem rowStyle heightAndWidth composeIncome">
             <view class="flexItem columnStyle centers marginTop15 marginBottom15">
@@ -17,25 +17,27 @@
             </view>
         </view>
     </view>
-    <scroll-view class="tableView" scroll-y="{{true}}" wx:if="{{hasData}}"  wx:for="{{ moneyInfo }}" wx:for-item="info">
-        <view class="flexItem rowStyle tableViewCellHeader marginTop10" bindtap="goDeatailEvent">
-            <image class="orderImage marginLeft12" src="/images/dingdan.png"></image>
-            <label class="color54 fontSize12">订单编号: {{orderNum}}</label>
-        </view>
-        <view class="flexItem columnStyle tableViewCell" bindtap="goDeatailEvent">
-            <view class="flexItem rowStyle marginBottom10 cellStyle">
-                <label class="color54 fontSize12">付款金额</label>
-                <label class="fontSize14">￥ {{ payAmount }}</label>
+    <scroll-view class="tableView" scroll-y bindscrolltoupper="upper" bindscrolltolower="lower">
+        <block wx:if="{{hasData}}"  wx:for="{{ moneyInfo }}" wx:for-item="info" wx:key="{{info.order_uuid}}">
+            <view class="flexItem rowStyle tableViewCellHeader marginTop10" bindtap="goOrderDetail" data-order_uuid="{{info.order_uuid}}">
+                <image class="orderImage marginLeft12" src="/images/dingdan.png"></image>
+                <label class="color54 fontSize12">订单编号: {{info.order_uuid}}</label>
             </view>
-            <view class="flexItem rowStyle marginBottom10 cellStyle">
-                <label class="color54 fontSize12">付款时间</label>
-                <label class="color54 fontSize12">￥ {{ payTime }}</label>
+            <view class="flexItem columnStyle tableViewCell" bindtap="goOrderDetail"  data-order_uuid="{{info.order_uuid}}">
+                <view class="flexItem rowStyle marginBottom10 cellStyle">
+                    <label class="color54 fontSize12">付款金额</label>
+                    <label class="fontSize14">￥ {{ info.real_money }}</label>
+                </view>
+                <view class="flexItem rowStyle marginBottom10 cellStyle">
+                    <label class="color54 fontSize12">付款时间</label>
+                    <label class="color54 fontSize12"> {{ info.createTime }}</label>
+                </view>
+                <view class="flexItem rowStyle marginBottom10 cellStyle">
+                    <label class="color54 fontSize12">付款方式</label>
+                    <label class="color54 fontSize12">{{ info.pay_way }}</label>
+                </view>
             </view>
-            <view class="flexItem rowStyle marginBottom10 cellStyle">
-                <label class="color54 fontSize12">付款方式</label>
-                <label class="color54 fontSize12">{{ payType }}</label>
-            </view>
-        </view>
+        </block>
     </scroll-view>
     
 </view>

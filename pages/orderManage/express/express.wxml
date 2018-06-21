@@ -1,0 +1,20 @@
+<view class='p10'>
+    <view class="flex-jsc flex-dirc bb pb10">
+        <view>中通快递</view>
+        <view>123456789</view>
+    </view>
+    <view class='p10'>
+        <view class='flex-jss'>
+            <view class='button-wx-wrap'>
+                <view class='w10 h10 br border bg-ff7800'></view>
+            </view>
+            <view class='w325 ml10'>
+                <view class='f15 color-ff7800'>
+                    发达看见对方澳康达asjdflkafalkdfja打扫房间阿里对方as定界符埃里克的房间爱离开对方发达看见对方澳康
+                </view>
+                <view class='f12 color-aaa'>2018-06-19 15:05:53</view>
+            </view>
+        </view>
+        <view class='w1 h50 ml5 border'></view>
+    </view>
+</view>

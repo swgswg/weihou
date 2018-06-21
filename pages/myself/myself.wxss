@@ -16,11 +16,12 @@ page{
 .myHeader {
     width: 100%;
     height: 230px;
-    /*background: url("../images/background.png") repeat #35495D;*/
+    /* background: url("/images/background.png") repeat #35495D; */
     display: flex;
     flex-direction: column;
-    /*background-size:cover;*/
-     background: url("http://p1.bqimg.com/1949/32012dfe8fe307cf.png") no-repeat #35495D fixed top;
+     /* background-size:cover;  */
+    /* background: url("") no-repeat #35495D fixed top;  */
+    background-color: #35495d;
 }
 
 .topSet {
@@ -58,7 +59,7 @@ page{
     color: white;
     font-size: 12px;
     text-align: center;
-    margin-top: -15px
+    margin-top: -20px
 }
 
 .myLists {

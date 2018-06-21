@@ -21,7 +21,8 @@ Page({
         is_select_xiaoliang: false,
         is_loadmore: true,
         scrollTop: 0,
-        floorstatus: false
+        floorstatus: false,
+        aliyunUrl: urlData.uploadFileUrl
     },
     goTop: function (e) {
         this.setData({
@@ -129,14 +130,14 @@ Page({
                     sheng_jiang: 2, 
                     is_select_shangjia: true 
                 });
-                data.isUse = 1;
+                data.isUse = 1;  // 上架1
                 break;
             case 'xiajia':
                 that.setData({ 
                     sheng_jiang: 1, 
                     is_select_xiajia: true 
                 });
-                data.isUse = 0;
+                data.isUse = 2;  // 下架2
                 break;
             case 'xiaoliang':
                 if (that.data.is_select_xiaoliang == true) {
@@ -167,9 +168,10 @@ Page({
                 data.commentNum = that.data.sheng_jiang;
                 break;
             case 'shenhe':
-                data.isUse = 2;
+                data.isUse = 0; // 未上架,审核中
                 break;
-
+            case 'qiangzhixiajia':
+                data.isUse = 3;  // 禁止上架,强制下架
         }
         that.setData({ 
             select_type: s_type, 
@@ -208,7 +210,8 @@ Page({
             success: function (res) {
                 if (res.confirm) {
                     let goodsId = e.currentTarget.dataset.goodsid;
-                    console.log(goodsId)
+                    // console.log(goodsId);
+                    
                 } else if (res.cancel) {
                     
                 }

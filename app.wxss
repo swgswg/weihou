@@ -23,6 +23,7 @@ button,input,textarea,select,.radio{ -webkit-appearance: none; appearance: none;
 .clearfix::after { content:"."; display:block; height:0; clear:both; visibility:hidden; font-size:0; }
 .fl{ float: left;}
 .fr{ float: right;}
+.cb{clear: both;}
 .tl{ text-align: left;}
 .tc{ text-align: center;}
 .tr{ text-align: right;}
@@ -39,6 +40,7 @@ button,input,textarea,select,.radio{ -webkit-appearance: none; appearance: none;
 .f10{ font-size: 20rpx;}
 .f12{ font-size: 24rpx;}
 .f14{ font-size: 28rpx;}
+.f15{font-size:30rpx;}
 .f16{ font-size: 32rpx;}
 .f18{ font-size: 36rpx;}
 .f20{ font-size: 40rpx;}
@@ -64,6 +66,8 @@ button,input,textarea,select,.radio{ -webkit-appearance: none; appearance: none;
 .m10{ margin: 20rpx;}
 .m15{ margin: 30rpx;}
 .m20{ margin: 40rpx;}
+.p10{padding: 20rpx;box-sizing: border-box;}
+.pb10{padding-bottom: 20rpx;}
 
 .delLine{ text-decoration: line-through;}
 .floatBox{position:fixed; left: 0; top: 0; right: 0; bottom: 0;}
@@ -243,5 +247,5 @@ radio .wx-radio-input.wx-radio-input-checked::before{
    -webkit-transform:translate(-50%, -50%) scale(1);
 }
 image{
-    border:1rpx solid red;
+     border:1rpx solid red; 
 }

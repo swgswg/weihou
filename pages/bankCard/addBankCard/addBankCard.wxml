@@ -1,0 +1,17 @@
+<form bindsubmit="addBankCard" class='form'>
+    <view class='form-each'>
+        <label class='label'>姓名:</label>
+        <input name="owner" placeholder='请输入您的姓名'/>
+    </view>
+    <view class='form-each'>
+        <label class='label'>身份证号:</label>
+        <input name="ID_card" type='number' placeholder='请输入您的身份证'/>
+    </view>
+    <view class='form-each'>
+        <label class='label'>银行卡号:</label>
+        <input name="card_no" type='number' placeholder='请输入您的银行卡号'/>
+    </view>
+    <view class='btn'>
+         <button type='primary' formType="submit" class='mt10 '>提交</button>
+    </view>
+</form>

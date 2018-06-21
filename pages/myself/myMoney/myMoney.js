@@ -13,9 +13,6 @@ Page({
 
 // 加载
   onLoad: function () {
-    wx.setNavigationBarTitle({
-        title: '我的钱包'
-    })
     var that = this
     //更新数据
       that.setData({

@@ -1,0 +1,15 @@
+<block wx:for="{{card}}" wx:key="{{item.card_no}}"> 
+    <view class="card">
+        <view catchtap='setCardDefault' data-cid='{{item.cid}}' class="moren {{item.is_default ? 'active' : ''}}"></view>
+        <view class='card-num'>
+            {{item.card_no}}
+        </view>
+        <view class='btn'>
+            <view catchtap='unbindBankCard' data-cid='{{item.cid}}'  class="button button-caution button-rounded button-wx-tiny">解绑</view>
+        </view>
+    </view>
+</block>
+<view class='add' bindtap='addCard'>
+    <text class="iconfont icon-add"></text> 
+    <view class='ml10'>添加银行卡</view>
+</view>

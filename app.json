@@ -1,7 +1,14 @@
 {
     "pages":[
-        "pages/moneyManage/moneyDetail/moneyDetail",
+        
+        
+        "pages/myself/myself",
         "pages/moneyManage/moneyManage",
+        "pages/moneyManage/moneyDetail/moneyDetail",
+
+        "pages/bankCard/bankCardList/bankCardList",
+        "pages/bankCard/addBankCard/addBankCard",
+        
         "pages/orderManage/orderManage",
         "pages/orderManage/returnGoods/returnGoods",
         "pages/orderManage/exchangeGoods/exchangeGoods",
@@ -10,8 +17,9 @@
         "pages/myGoods/addGoods/addGoods",
         "pages/myGoods/editGoods/editGoods",
         "pages/orderManage/orderDeatail/orderDeatail",
-        
-        "pages/myself/myself",
+        "pages/orderManage/sendGoods/sendGoods",
+        "pages/orderManage/express/express",
+        "pages/myself/editShopInfo/editShopInfo",
         "pages/myself/myMoney/myMoney",
         "pages/myself/myMoney/moneyDeatail/moneyDeatail",
         "pages/myself/modifyPassword/modifyPassword",

@@ -4,41 +4,61 @@
             <image class="callImage" src="/images/kefu.png" bindtap="callKeHu"></image>
             <label class="settingLabel"  bindtap="setEvent">设置</label>
         </view>
-        <image class="portr" src="/images/people_r.png"></image>
-        <text class="nickName">恋人心恋人心恋人心恋人心</text>
+        <image catchtap='editProfile' class="portr" src="{{shopInfo.logo ? (aliyunUrl + shopInfo.logo) : '/images/people.png'}}"></image>
+        <text class="nickName">{{shopInfo.ShopName}}</text>
         <image class="aixin" src="/images/aixin.png"></image>
         <text class="welfare_val">公益值 168</text>
     </view>
-
-
-
+    
     <dl class="menu  {{ isHidden===true ? hide:noHid }} ">
         <dd>
             <ul>
-                <li bindtap="modifyPassword">修改秘密</li>
-                <li bindtap="directionsForUse">使用说明</li>
+                <!-- <li bindtap="modifyPassword">修改密码</li> -->
+                <li bindtap="editShopInfo">修改信息</li>
+                <!-- <li bindtap="directionsForUse">使用说明</li> -->
                 <li bindtap="feedBack">反馈意见</li>
                 <li bindtap="loginOut">退出登录</li>
             </ul>
         </dd>
     </dl>
 
-    <scroll-view class="myLists" scroll-y="{{true}}" wx:if="{{hasData}}">
-        <view class="cell" wx:for="{{ money }}" wx:for-item="info" bindtap="showMoney">
-            <image class="cellImage" src="{{ info.url }}"></image>
-            <text class="cellTitle" data-source="{{ infor }}">{{ info.title }}</text>
-            <image class="cellIndicator" src="{{ info.indicator }}"></image>
-            <text class="cellContent">{{ info.content }}</text>
-            <label class="lineSpace"></label>
-        </view>
-    </scroll-view>
+    <view class="cell mt15 mb15" catchtap='showMoney'>
+        <image class="cellImage" src="/images/wallet.png"></image>
+        <text class="cellTitle" data-source="{{ infor }}">我的钱包</text>
+        <image class="cellIndicator" src="/images/next.png"></image>
+        <text class="cellContent">{{shopInfo.account ? shopInfo.account : '0.00' }}元</text>
+        <label class="lineSpace"></label>
+    </view>
 
-     <scroll-view class="myLists" scroll-y="{{true}}" wx:if="{{hasData}}">
-        <view class="cell" wx:for="{{ myInfro }}" wx:for-item="info">
-            <image class="cellImage" src="{{ info.url }}"></image>
-            <text class="cellTitle" data-source="{{ infor }}">{{ info.title }}</text>
-            <text class="cellContent">{{ info.content }}</text>
-            <label class="lineSpace"></label>
-        </view>
-    </scroll-view>
+    <view class="cell">
+        <image class="cellImage" src="/images/shop.png"></image>
+        <text class="cellTitle" >商家名称</text>
+        <text class="cellContent">{{shopInfo.ShopName}}</text>
+        <label class="lineSpace"></label>
+    </view>
+    <!-- <view class="cell">
+        <image class="cellImage" src="/images/zuoji.png"></image>
+        <text class="cellTitle">商家座机</text>
+        <text class="cellContent">{{shopInfo.shop_addr}}</text>
+        <label class="lineSpace"></label>
+    </view> -->
+    <view class="cell">
+        <image class="cellImage" src="/images/phone.png"></image>
+        <text class="cellTitle" >商家手机</text>
+        <text class="cellContent">{{shopInfo.mobile}}</text>
+        <label class="lineSpace"></label>
+    </view>
+    <view class="cell">
+        <image class="cellImage" src="/images/address.png"></image>
+        <text class="cellTitle" >商家地址</text>
+        <text class="cellContent">{{shopInfo.shop_addr}}</text>
+        <label class="lineSpace"></label>
+    </view>
+    <view class="cell" catchtap='showBankCard'>
+        <image class="cellImage" src="/images/bangding.png"></image>
+        <text class="cellTitle" >绑定账户</text>
+        <text class="cellContent">{{card.card_no}}</text>
+        <label class="lineSpace"></label>
+    </view>
+    
 </view>

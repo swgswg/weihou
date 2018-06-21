@@ -1,6 +1,6 @@
 <view class="dispalyFlex container">
     <view class="dispalyFlex view1" style="flex-item">
-        <image class="moneyImge" src="../../images/yue.png"></image>
+        <image class="moneyImge" src="/images/yue.png"></image>
         <label class="font-size14 balance magrgin-top10">钱包余额</label>
         <view class="dispalyFlex balanceShow">
             <label class="balanceValue magrgin-top10">{{ balance }}</label>
@@ -9,8 +9,8 @@
     </view>
     <view class="view2 magrgin-top10" style="flex-item">
         <view class="height35">
-            <image class="tixianImage margin-left12" src="../../images/tixian.png"></image>
-            <label class="font-size12 tixianNote normalColor">提现至</label>
+            <!-- <image class="tixianImage margin-left12" src="/images/tixian.png"></image> -->
+            <label class="font-size16 tixianNote normalColor">提现至</label>
         </view>
         <label class="floatLeft lineSpace"></label>
         <view class="height44">

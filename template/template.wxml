@@ -10,14 +10,16 @@
         </block>
     </view>
 </template>
+
+<!--带下拉选项的按钮  -->
 <template name="selectNav">
     <view class="selectNav">
         <block wx:for="{{selectNav.nav}}" wx:for-item="nav" wx:key="{{index}}">
-            <view class="selectNav-item">{{nav}}</view>
+            <view class="selectNav-item" data-index='{{index}}'>{{nav}}</view>
         </block>
     </view>
     <view class='selectNav-list'>
-        <block wx:for="{{selectNav.list}}" wx:for-item="list" wx:key="{{index}}">
+        <block wx:for="{{selectNav.list[selectNav.currentNav]}}" wx:for-item="list" wx:key="{{index}}">
             <view>  
                 {{list}}
             </view>

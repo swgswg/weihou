@@ -33,37 +33,37 @@ Page({
         })
     },
 
-    catchtouchend: function (e) {
-        let that = this;
-        let currentNum = parseInt(this.data.currentNavtab);
+    // catchtouchend: function (e) {
+    //     let that = this;
+    //     let currentNum = parseInt(this.data.currentNavtab);
 
-        // that.endX = e.changedTouches[0].clientX;
-        // that.endY = e.changedTouches[0].clientY;
+    //     // that.endX = e.changedTouches[0].clientX;
+    //     // that.endY = e.changedTouches[0].clientY;
 
-        // if(that.endX  - that.startX > 10 && currentNum > 0){
-        //   currentNum -= 1;
-        // }
+    //     // if(that.endX  - that.startX > 10 && currentNum > 0){
+    //     //   currentNum -= 1;
+    //     // }
 
-        // if(that.endX - that.startX < -10 && currentNum< this.data.navTab.length -1){
-        //   currentNum=currentNum + 1;
-        // }
+    //     // if(that.endX - that.startX < -10 && currentNum< this.data.navTab.length -1){
+    //     //   currentNum=currentNum + 1;
+    //     // }
 
-        let endPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
-        let startPoint = that.data.startPoint
-        if (endPoint[0] <= startPoint[0]) {
-            if (Math.abs(endPoint[0] - startPoint[0]) >= Math.abs(endPoint[1] - startPoint[1]) && currentNum < this.data.navTab.length - 1) {
-                currentNum = currentNum + 1;
-            }
-        } else {
-            if (Math.abs(endPoint[0] - startPoint[0]) >= Math.abs(endPoint[1] - startPoint[1]) && currentNum > 0) {
-                currentNum -= 1;
-            }
-        }
+    //     let endPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
+    //     let startPoint = that.data.startPoint
+    //     if (endPoint[0] <= startPoint[0]) {
+    //         if (Math.abs(endPoint[0] - startPoint[0]) >= Math.abs(endPoint[1] - startPoint[1]) && currentNum < this.data.navTab.length - 1) {
+    //             currentNum = currentNum + 1;
+    //         }
+    //     } else {
+    //         if (Math.abs(endPoint[0] - startPoint[0]) >= Math.abs(endPoint[1] - startPoint[1]) && currentNum > 0) {
+    //             currentNum -= 1;
+    //         }
+    //     }
 
-        this.setData({
-            currentNavtab: currentNum
-        });
-    },
+    //     this.setData({
+    //         currentNavtab: currentNum
+    //     });
+    // },
 
     /**
      * 拨打电话
@@ -103,7 +103,7 @@ Page({
        } else if(mystatus == 4){
             mystatus = 67;
         }
-        console.log(mystatus);
+        // console.log(mystatus);
         that.getOrder(mystatus,that);
     },
 
@@ -126,35 +126,40 @@ Page({
      * 发货按钮
      */
     sendGoods:function(e){
-        let that = this;
-        wx.showModal({
-            title: '发货',
-            content: '是否确认发货',
-            success: function (res) {
-                if (res.confirm) {
-                    wx.showToast({
-                        title: '发货成功',
-                        icon: 'success',
-                        duration: 1000,
-                        success:function(){
-                             // 同步改变数据库订单状态
-                            funData.updateOrderStatus(e.currentTarget.dataset.order_mainid, that.data.to_be_received, that,()=>{
-                                // 同步改变页面订单状态
-                                that.changeOrderStatus(e.currentTarget.dataset.index,that.data.to_be_received,that);
-                            });
-                        }
-                    });
-                   
-                } else if (res.cancel) {
-                    wx.showToast({
-                        title: '取消发货',
-                        icon: 'none',
-                        duration: 1000
-                    });
-                }
-            }
+        wx.navigateTo({
+            url: '/pages/orderManage/sendGoods/sendGoods',
         })
     },
+    // sendGoods:function(e){
+    //     let that = this;
+    //     wx.showModal({
+    //         title: '发货',
+    //         content: '是否确认发货',
+    //         success: function (res) {
+    //             if (res.confirm) {
+    //                 wx.showToast({
+    //                     title: '发货成功',
+    //                     icon: 'success',
+    //                     duration: 1000,
+    //                     success:function(){
+    //                          // 同步改变数据库订单状态
+    //                         funData.updateOrderStatus(e.currentTarget.dataset.order_mainid, that.data.to_be_received, that,()=>{
+    //                             // 同步改变页面订单状态
+    //                             that.changeOrderStatus(e.currentTarget.dataset.index,that.data.to_be_received,that);
+    //                         });
+    //                     }
+    //                 });
+                   
+    //             } else if (res.cancel) {
+    //                 wx.showToast({
+    //                     title: '取消发货',
+    //                     icon: 'none',
+    //                     duration: 1000
+    //                 });
+    //             }
+    //         }
+    //     })
+    // },
 
     // 改变状态 同步修改数据
     changeOrderStatus: function(index,mystatus,that){
@@ -214,6 +219,15 @@ Page({
             url: '/pages/orderManage/returnGoods/returnGoods?order_uuid=' + e.currentTarget.dataset.order_uuid
             // url: '/pages/orderManage/returnGoods/returnGoods'
 
+        })
+    },
+
+    /**
+     *  查看物流详情
+     */
+    checkLogistics:function(e){
+        wx.navigateTo({
+            url: '/pages/orderManage/express/express?order_uuid=' + e.currentTarget.dataset.order_uuid
         })
     },
 })

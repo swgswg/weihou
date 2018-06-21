@@ -1,96 +1,158 @@
 //获取应用实例
-var app = getApp()
+var app = getApp();
+const urlData = require('../../utils/urlData.js');
+const funData = require('../../utils/functionData.js');
+const util = require('../../utils/util.js');
+
 Page({
-  data: {
-    myInfro:[],
-    money:[],
-    hasData:true,
-    isHidden:true,
-    hide:"hide",
-    noHid:"noHid"
-  },
+    data: {
+        shopInfo: null,
+        card:null,
+        profile:'',
+        money: [],
+        hasData: false,
+        isHidden: true,
+        hide: "hide",
+        noHid: "noHid",
+        aliyunUrl: urlData.uploadFileUrl
+    },
+    /**
+     * 我的钱包
+     */
+    showMoney: function () {
+        wx.navigateTo({
+            url: '../myself/myMoney/myMoney'
+        })
+    },
 
-  showMoney: function () {
-    wx.navigateTo({
-      url: '../myself/myMoney/myMoney'
-    })
-  },
+    setEvent: function () {
+        this.setData({
+            isHidden: !this.data.isHidden
+        })
+        // console.log(this.data.isHidden)
+    },
 
-  setEvent: function () {
-    this.setData ({
-      isHidden: !this.data.isHidden
-    })
-    console.log(this.data.isHidden)
-  },
+    /**
+     * 客服
+     */
+    callKeHu: function () {
+        wx.makePhoneCall({
+            phoneNumber: '17733689080'
+        })
+    },
 
-  callKeHu: function () {
-    wx.makePhoneCall({
-      phoneNumber: '17733689080'
-    })
-  },
+    /**
+     * 修改密码
+     */
+    modifyPassword: function () {
+        this.setData({
+            isHidden: !this.data.isHidden
+        }),
+        wx.navigateTo({
+            url: '../myself/modifyPassword/modifyPassword'
+        })
+    },
 
-  modifyPassword: function () {
-    this.setData ({
-      isHidden: !this.data.isHidden
-    }),
-    wx.navigateTo({
-      url: '../myself/modifyPassword/modifyPassword'
-    })
-  },
+    /**
+     * 使用说明
+     */
+    directionsForUse: function () {
+        this.setData({
+            isHidden: !this.data.isHidden
+        }),
+        wx.navigateTo({
+            url: '../myself/directionsForUse/directionsForUse'
+        })
+    },
 
-  directionsForUse: function () {
-    this.setData ({
-      isHidden: !this.data.isHidden
-    }),
-    wx.navigateTo({
-      url: '../myself/directionsForUse/directionsForUse'
-    })
-  },
+    /**
+     * 反馈
+     */
+    feedBack: function () {
+        this.setData({
+            isHidden: !this.data.isHidden
+        }),
+        wx.navigateTo({
+            url: '../myself/feedBack/feedBack'
+        })
+    },
 
-  feedBack: function () {
-    this.setData ({
-      isHidden: !this.data.isHidden
-    }),
-    wx.navigateTo({
-      url: '../myself/feedBack/feedBack'
-    })
-  },
+    /**
+     * 退出登录
+     */
+    loginOut: function () {
+        this.setData({
+            isHidden: !this.data.isHidden
+        })
+        // wx.navigateTo({
+        //   url: '../login/login'
+        // })
+        // wx.navigateBack({
+        //   delta: 1
+        // })
+        wx.redirectTo({
+            url: '../login/login'
+        })
+    },
 
-   loginOut: function () {
-    this.setData ({
-      isHidden: !this.data.isHidden
-    })
-    // wx.navigateTo({
-    //   url: '../login/login'
-    // })
-    // wx.navigateBack({
-    //   delta: 1
-    // })
-    wx.redirectTo({
-      url: '../login/login'
-    })
-  },
 
-  
+    // 加载
+    onLoad: function () {
+        var that = this
+        // 查询商家信息
+        funData.getShopByCode(app.globalData.shopCode, that, (data)=>{
+            // console.log(data);
+            let card = data.card;
+            // let card = String(shopInfo.card_no);
+            // let len = card.length;
+            // shopInfo.card_no = '*'.repeat(len - 4) + card.slice(len - 4);
+            // console.log(card.card_no);
+            card.card_no = util.bankCardByStar(card.card_no);
+            // console.log(shopInfo);
+            that.setData({
+                shopInfo: data.shop,
+                card: card,
+                hasData:true
+            });
+        });
+       
+    },
 
-// 加载
-  onLoad: function () {
-    wx.setNavigationBarTitle({
-        title: ' '
-    })
-    var that = this
-    //更新数据
-      that.setData({
-        money:[
-          {"url":"../images/wallet.png","title":"我的钱包","content":"3000.00元","indicator":"../images/next.png"},
-        ],
-         myInfro:[
-          {"url":"../images/shop.png","title":"商家名称","content":"老码头火锅"},
-          {"url":"../images/zuoji.png","title":"商家座机","content":"028-1234567"},
-          {"url":"../images/phone.png","title":"商家手机","content":"12345678912"},
-          {"url":"../images/address.png","title":"商家地址","content":"天府三街新希望国际B"},
-          {"url":"../images/bangding.png","title":"绑定账户","content":"成都银行 ************1231"}
-        ]
-      })
-  }
+    /**
+     * 修改商家logo
+     */
+    editProfile:function(){
+        let that = this;
+        funData.myUpload(function (newsrc, fileNmae){
+            console.log(newsrc,fileNmae);
+            let shopInfo = that.data.shopInfo;
+            shopInfo.logo = fileNmae; 
+            that.setData({
+                shopInfo: shopInfo
+            })
+            // 同步修改数据库
+            funData.updateInfoLogo(app.globalData.shopCode, fileNmae,that, ()=>{});
+        });
+    },
+
+    /**
+     * 修改商家信息按钮
+     */
+    editShopInfo:function(){
+        this.setData({
+            isHidden: !this.data.isHidden
+        }),
+        wx.navigateTo({
+            url: '/pages/myself/editShopInfo/editShopInfo'
+        })
+    },
+
+    /**
+     * 查看绑定的银行卡
+     */
+    showBankCard:function(){
+        wx.navigateTo({
+            url: '/pages/bankCard/bankCardList/bankCardList',
+        })
+    },
 })
