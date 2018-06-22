@@ -223,7 +223,6 @@ module.exports = {
         this.requestUrl(data, urlData.insertGoodsUrl, pageobj, callback);
     },  
 
-    
     // 查询商品详情
     getGoodsDetails: function (goodsid,pageobj, callback){
         this.requestUrl({ goodsId: goodsid }, urlData.getGoodsDetailsUrl, pageobj, callback);
@@ -236,6 +235,22 @@ module.exports = {
         };
         this.requestUrl(data, urlData.deleteGoodsUrl, pageobj, callback);
     },
+
+    // 修改商品信息
+    // updateGoods: function (goodsid, mygoods_name, mygoods_details, myprice, mystock, myimg, mystatus, pageobj, callback){
+    updateGoods: function (data, pageobj, callback){
+        // let data = {
+        //     goodsId: goodsid,
+        //     goods_name: mygoods_name,
+        //     goods_details: mygoods_details,
+        //     price: myprice,
+        //     stock: mystock,
+        //     img:myimg,
+        //     status:mystatus
+        // };
+        this.requestUrl(data, urlData.updateGoodsUrl, pageobj, callback);
+    },
+
     // 查询分组
     getGroup: function (pageobj, callback){
         this.requestUrl({}, urlData.getGroupUrl, pageobj, callback);
@@ -415,6 +430,14 @@ module.exports = {
         this.requestUrl(data, urlData.getCardByCodeUrl, pageobj, callback);        
     },
 
+    // 根据id查银行卡
+    getCardById: function (mycid, pageobj, callback){
+        let data = {
+            cid: mycid,
+        }
+        this.requestUrl(data, urlData.getCardByCodeUrl, pageobj, callback);        
+    },
+
     // 设为默认银行卡
     updateCardDefault: function (cid, pageobj, callback){
         let data = {
@@ -424,12 +447,14 @@ module.exports = {
     },
 
     // 添加银行卡
-    insertCard: function (shopCode, myowner, myID_card, mycard_no, pageobj, callback){
+    insertCard: function (shopCode, myowner, myID_card, mycard_no, mymobile, mybank, pageobj, callback){
         let data = {
             shop_code: shopCode,
             owner: myowner,
             ID_card: myID_card,
-            card_no: mycard_no
+            card_no: mycard_no,
+            mobile:mymobile,
+            bank:mybank
         }
         this.requestUrl(data, urlData.insertCardUrl, pageobj, callback);     
     },
@@ -459,6 +484,14 @@ module.exports = {
             order_uuid: myorder_uuid,
         }
         this.requestUrl(data, urlData.getTransInfoUrl, pageobj, callback);   
+    },
+
+    // 查询收藏商店的用户
+    getUserByCode: function (shopCode, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+        }
+        this.requestUrl(data, urlData.getUserByCodeUrl, pageobj, callback);   
     },
 }   
 

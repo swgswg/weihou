@@ -1,7 +1,5 @@
 {
     "pages":[
-        
-        
         "pages/myself/myself",
         "pages/moneyManage/moneyManage",
         "pages/moneyManage/moneyDetail/moneyDetail",
@@ -22,6 +20,7 @@
         "pages/myself/editShopInfo/editShopInfo",
         "pages/myself/myMoney/myMoney",
         "pages/myself/myMoney/moneyDeatail/moneyDeatail",
+        "pages/myself/userCollection/userCollection",
         "pages/myself/modifyPassword/modifyPassword",
         "pages/myself/directionsForUse/directionsForUse",
         "pages/myself/feedBack/feedBack",

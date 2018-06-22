@@ -1,54 +1,61 @@
-page{
+page {
     padding: 0 20rpx;
     box-sizing: border-box;
 }
-.card{
+
+.card {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     width: 100%;
     height: 200rpx;
-    margin-top:20rpx;
+    margin-top: 20rpx;
     font-size: 40rpx;
-    border:2px solid #ccc;
+    border: 2px solid #ccc;
 }
-.moren{
+
+.moren {
     position: absolute;
     top: 10rpx;
     left: 10rpx;
     width: 48rpx;
     height: 48rpx;
-    border: 1rpx solid #ccc; 
+    border: 1rpx solid #ccc;
     border-radius: 50%;
 }
-.active{
+
+.active {
     background-color: #1b9af7;
 }
-.card-num{
+
+.card-num {
     width: 100%;
-    height: 150rpx;
+    /* height: 100rpx; */
     padding-top: 20rpx;
     box-sizing: border-box;
     text-align: center;
-    line-height: 150rpx;
+    /* line-height: 50rpx; */
     /* border: 1px solid blue; */
 }
-.btn{
-    width: 100%;
-    height: 50rpx;
+
+.btn {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 10rpx; 
+    width: 100%;
+    height: 50rpx;
+    /* margin-top: 10rpx;  */
+    padding-right: 10rpx;
     /* border: 1px solid red; */
 }
-.add{
+
+.add {
     display: flex;
     justify-content: flex-start;
-    margin-top:20rpx;
+    margin-top: 20rpx;
     padding: 20rpx;
     font-size: 40rpx;
-    border: 1px solid #ddd; 
+    border: 1px solid #ddd;
 }

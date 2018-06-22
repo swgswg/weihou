@@ -1,1 +1,122 @@
-/* pages/myGoods/editGoods/editGoods.wxss */
+.content{
+    width: 100%;
+    height: 1200rpx;
+    /* border: 1px solid red; */
+}
+.big-title{
+    width: 100%;
+    height: 100%;
+    padding: 10rpx;
+    box-sizing: border-box;
+    font-size: 35rpx;
+    color:#333; 
+    /* border: 1px solid red; */
+}
+.info-each{
+    width: 100%;
+    height: 100%;
+    padding: 10rpx 25rpx;
+    box-sizing: border-box;
+    font-size: 30rpx;
+    color:#666; 
+    background-color: #fff;
+    /* border: 1px solid red; */
+}
+.sm-content{
+    display: flex;
+    flex-wrap: wrap ;
+    justify-content: flex-start;
+    padding: 10rpx 30rpx;
+    box-sizing: border-box;
+    font-size: 26rpx;
+    color: #333;
+     /* border: 1px solid red;  */
+}
+.sm-content input{
+    width: 700rpx;
+    height:70rpx;
+}
+.sm-content2{
+    width: 100%;
+    font-size: 24rpx;
+    color: #666;
+    /* border:1rpx solid lightblue; */
+}
+.sm-content image{
+    width: 160rpx;
+    height: 160rpx;
+    border: 1px solid red;
+}
+.sm-content-text{
+    margin-right: 10rpx; 
+    float: left;
+}
+.sm-content-text2{
+    margin-right: 10rpx; 
+    float: left;
+}
+.img{
+    position: relative;
+    /* border:1px solid red; */
+    width: 160rpx;
+    height: 160rpx;
+    margin-right: 20rpx;
+    margin-bottom: 20rpx;
+    
+}
+/*列表图  */
+.list-img image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160rpx;
+    height: 160rpx;
+    
+}
+.sort{
+    width: 160rpx;
+    height: 20rpx;
+    border: 1px solid red;
+}
+/*取消图片  */
+.cancle-img{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40rpx;
+    height: 40rpx;
+    font-size: 40rpx; 
+    text-align: center;
+    line-height: 30rpx;
+    color: #fff;
+    background-color: #333;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+/*轮播图  */
+.swiper-img image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160rpx;
+    height: 160rpx; 
+}
+/*详情图  */
+.detail-img image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160rpx;
+    height: 160rpx;
+}
+.attention{
+    width: 100%;
+    height: 100%;
+    padding: 10rpx 20rpx;
+    box-sizing: border-box;
+    font-size: 24rpx;
+    color:#bbb; 
+}
+input,textarea{
+    border: 1rpx solid #aaa;
+}

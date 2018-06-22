@@ -8,6 +8,7 @@ var page = 1;
 var pageSize = 20;
 Page({
     data: {
+        glo_is_load:true,
         order:null,
         totalIncome: 0.0,
         runningMoney: 0.0,
@@ -117,7 +118,8 @@ Page({
             // console.log(order);
             that.setData({
                 order: order,
-                hasData:true
+                hasData:true,
+                glo_is_load:false
             });
         });
     },

@@ -155,4 +155,13 @@ Page({
             url: '/pages/bankCard/bankCardList/bankCardList',
         })
     },
+
+    /**
+     * 用户收藏
+     */
+    showUserCollection:function(){
+        wx.navigateTo({
+            url: '/pages/myself/userCollection/userCollection',
+        })
+    },
 })

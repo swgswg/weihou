@@ -178,6 +178,17 @@ Page({
         // console.log(e.detail.value);
         let that = this;
         let goods = e.detail.value;
+        console.log(goods);
+        // 主要信息不能为空
+        if (goods.goods_details == '' || goods.goods_name == '' || goods.price == '' || goods.stock == '' ){
+            wx.showToast({
+                title: '请填写正确信息',
+                icon: 'none',
+                duration: 1000,
+            });
+            return;
+        }
+
         let list_img = that.data.list_img;
         let swiper_img = that.data.swiper_img;
         let goodsDetail_img = that.data.goodsDetail_img;
@@ -211,12 +222,12 @@ Page({
                 title: '添加成功',
                 icon: 'success',
                 duration: 1000,
-                success:function(){
-                    wx.switchTab({
-                        url: '/pages/myGoods/goodsList/goodsList'
-                    })
-                }
             });
+            setTimeout(function(){
+                wx.switchTab({
+                    url: '/pages/myGoods/goodsList/goodsList'
+                })
+            },1500);
         });
     },
 });

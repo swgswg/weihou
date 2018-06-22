@@ -3,7 +3,7 @@
         <image class="moneyImge" src="/images/yue.png"></image>
         <label class="font-size14 balance magrgin-top10">钱包余额</label>
         <view class="dispalyFlex balanceShow">
-            <label class="balanceValue magrgin-top10">{{ balance }}</label>
+            <label class="balanceValue magrgin-top10">{{ shopInfo.account }}</label>
             <label class="font-size14 yuan">元</label>
         </view>
     </view>
@@ -15,7 +15,7 @@
         <label class="floatLeft lineSpace"></label>
         <view class="height44" bindtap='changeBankCard'>
             <label class="font-size12 floatLeft margin-left12 normalColor">银行卡</label>
-            <label class="font-size14 floatRight bankCard margin-right12">成都银行 1234**********3434</label>
+            <label class="font-size14 floatRight bankCard margin-right12">{{card.bank}} {{card.card_no}}</label>
         </view>
         <label class="floatLeft lineSpace"></label>
         <view class="height44">
@@ -25,7 +25,7 @@
         </view>
         <label class="floatLeft lineSpace"></label>
         <view class="height35">
-            <label class="font-size12 floatLeft margin-left12 balance">可提现金额{{ balance }}元</label>
+            <label class="font-size12 floatLeft margin-left12 balance">可提现金额<text class='ml10'>{{ shopInfo.pay_account }}元</text></label>
             <label class="font-size12 floatRight margin-right12 allDeposit" bindtap="allDeposit">全部提现</label>
         </view>
     </view>

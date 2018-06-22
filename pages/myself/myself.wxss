@@ -69,7 +69,7 @@ page{
 
 .callImage {
     width: 22px;
-    height: 13px;
+    height: 18px;
     margin-left: 12px;
     margin-top: 7px;
     float: left

@@ -8,7 +8,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        bank:''
     },
 
     /**
@@ -68,11 +68,21 @@ Page({
     },
 
     /**
+     * 选择银行
+     */
+    selectBank: function (e) {
+        this.setData({
+            bank: e.currentTarget.dataset.bank
+        });
+    },
+
+    /**
      * 添加银行卡
      */
     addBankCard: function (e) {
         let that = this;
         let cardInfo = e.detail.value;
+        console.log(cardInfo);
         // 验证身份证和银行卡号
         if ((!util.checkReg(2, cardInfo.ID_card)) || (!util.checkReg(3, cardInfo.card_no))) {
             wx.showToast({
@@ -81,13 +91,31 @@ Page({
                 duration: 1000
             })
             return;
-        }
-        funData.insertCard(app.globalData.shopCode, cardInfo.owner, cardInfo.ID_card, cardInfo.card_no, that, () => {
+        } else if (that.data.bank  == ''){
+            wx.showToast({
+                title: '请选择正确开户行',
+                icon: 'none',
+                duration: 1000
+            })
+            return;
+        } 
+        
+        // 添加银行卡
+        funData.insertCard(
+            app.globalData.shopCode, 
+            cardInfo.owner, 
+            cardInfo.ID_card, 
+            cardInfo.card_no, 
+            cardInfo.mobile,
+            that.data.bank,
+            that, () => {
             wx.showToast({
                 title: '添加银行卡成功',
                 icon: 'success',
                 duration: 1000
             });
         });
-    }
+    },
+
+    
 })

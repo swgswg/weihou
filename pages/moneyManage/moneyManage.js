@@ -7,6 +7,7 @@ let page = 1;
 let pageSize = 20;
 Page({
     data: {
+        glo_is_load:true,
         allMoney:'0.00',
         totalIncome: '0.00',
         runningMoney: 0.0,
@@ -31,7 +32,8 @@ Page({
             // console.log(data);
             that.setData({
                 totalIncome:data,
-                hasData:true
+                hasData:true,
+                glo_is_load: false,
             });
             
         });

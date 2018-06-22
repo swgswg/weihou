@@ -1,6 +1,6 @@
 .content{
     width: 100%;
-    height: 1100rpx;
+    height: 1200rpx;
     /* border: 1px solid red; */
 }
 .big-title{
@@ -19,6 +19,7 @@
     box-sizing: border-box;
     font-size: 30rpx;
     color:#666; 
+    background-color: #fff;
     /* border: 1px solid red; */
 }
 .sm-content{
@@ -29,7 +30,11 @@
     box-sizing: border-box;
     font-size: 26rpx;
     color: #333;
-    /* border: 1px solid red; */
+     /* border: 1px solid red;  */
+}
+.sm-content input{
+    width: 700rpx;
+    height:70rpx;
 }
 .sm-content2{
     width: 100%;
@@ -52,10 +57,11 @@
 }
 .img{
     position: relative;
-    border:1px solid red;
+    /* border:1px solid red; */
     width: 160rpx;
     height: 160rpx;
-    margin-right: 10rpx;
+    margin-right: 20rpx;
+    margin-bottom: 20rpx;
 }
 /*列表图  */
 .list-img image{

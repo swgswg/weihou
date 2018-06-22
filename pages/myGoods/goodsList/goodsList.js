@@ -52,7 +52,11 @@ Page({
             let goods_info = data.PageInfo.list;
             let len = goods_info.length;
             for(let i = 0; i < len; i++){
-                goods_info[i].perfectRate = (~~goods_info[i].perfect / ~~goods_info[i].comment_num) * 100 + '%';
+                let perfectRate = (~~goods_info[i].perfect / ~~goods_info[i].comment_num) * 100 + '%';
+                if (perfectRate){
+                    perfectRate = '0%';
+                }
+                goods_info[i].perfectRate = perfectRate;
             }
             // console.log(goods_info);
             that.setData({
@@ -70,6 +74,7 @@ Page({
         // requestData.keywords = that.data.this_keywords;
         // requestData.stype = that.data.select_type;
         // requestData.stype_jiage = that.data.select_jiage_type;
+        this.onLoad();
     },
 
     /**

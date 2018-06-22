@@ -80,6 +80,19 @@ Page({
     },
 
     /**
+     * 选择银行卡
+     */
+    selectBankCard:function(e){
+        let prevUrl = util.getPrevPageUrl();
+        // pages/myself/myMoney/myMoney
+        console.log(prevUrl);
+        wx.navigateTo({
+            url: '/' + util.getPrevPageUrl() + '?cid=' + e.currentTarget.dataset.cid
+        })
+
+    },
+
+    /**
      * 添加银行卡
      */
     addCard:function(){
