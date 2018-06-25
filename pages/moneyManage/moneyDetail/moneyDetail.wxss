@@ -36,24 +36,80 @@
     display: block;
     height: 100%;
     width: 100%;
-    /* overflow: hidden;  */
-    /* border: 1px solid red; */
+    /* overflow: hidden;  *//* border: 1px solid red; */
 }
-  
+
 scroll-view {
     width: 100%;
     height: 100%;
     white-space: nowrap;
     /* border: 1px solid red; */
-}  
+}
 
 .canvas {
     width: 2000rpx;
     height: 700rpx;
     margin-top: 20rpx;
-    /* border: 1px solid blue; */  
+    /* border: 1px solid blue; */
 }
-.flex-js-start{
+
+.flex-js-start {
     display: flex;
-    justify-content:flex-start; 
+    justify-content: flex-start;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-each {
+    width: 300rpx;
+    height: 80rpx;
+    text-align: center;
+    line-height: 80rpx;
+    /* border: 1rpx solid red; */
+}
+
+.nav-active {
+    color: #fff;
+    background: #1b82d1;
+}
+
+.content {
+    width: 750rpx;
+    height: 1120rpx;
+    padding: 20rpx;
+    box-sizing: border-box;
+    text-align: center;
+    /* border: 1rpx solid red; */
+}
+
+.table {
+     border: 1px solid rebeccapurple; 
+    /* border-right: 0; */
+    /* border-bottom: 0; */
+    width: 100%;
+}
+
+/*表格*/
+
+.tr {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.th, .td {
+    padding: 10px;
+    border-bottom: 1px solid #dadada;
+    border-right: 1px solid #dadada;
+    text-align: center;
+    width: 100%;
+}
+
+.th {
+    font-weight: 400;
+    background-color: #dadada;
 }

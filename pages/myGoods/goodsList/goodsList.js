@@ -19,6 +19,9 @@ Page({
         is_select_xiajia:false,
         is_select_haoping: false,
         is_select_xiaoliang: false,
+
+        // is_select_shehe:false,
+        // is_select_qiangzhi:false,
         is_loadmore: true,
         scrollTop: 0,
         floorstatus: false,
@@ -47,18 +50,23 @@ Page({
         // that.setData({ this_cate_id: this_cate_id, this_keywords: this_keywords });
 
         // 查询商品列表
-        funData.getGoods(page,pageSize,this,(data) => {
-            // console.log(data);
+        funData.getGoods(page,pageSize,1,this,(data) => {
+            console.log(data);
             let goods_info = data.PageInfo.list;
             let len = goods_info.length;
+            let perfectRate = '';
             for(let i = 0; i < len; i++){
-                let perfectRate = (~~goods_info[i].perfect / ~~goods_info[i].comment_num) * 100 + '%';
-                if (perfectRate){
+                if ( ~~goods_info[i].comment_num == 0){
                     perfectRate = '0%';
+                } else {
+                    perfectRate = (~~goods_info[i].perfect / ~~goods_info[i].comment_num) * 100 + '%';
+                    if (!perfectRate) {
+                        perfectRate = '0%';
+                    }
                 }
                 goods_info[i].perfectRate = perfectRate;
             }
-            // console.log(goods_info);
+            console.log(goods_info);
             that.setData({
                 goods_data: goods_info,
                 glo_is_load: false
@@ -80,40 +88,48 @@ Page({
     /**
      * 继续加载数据
      */
-    onReachBottom: function (e) {
-        let that = this;
-        wx.showNavigationBarLoading();
-        if (that.data.is_loadmore == false) {
-            wx.hideNavigationBarLoading();
-            return false;
-        }
-        pageSize += 20;
-        // var this_cate_id = that.data.this_cate_id;
-        let searchData = {
-            shopCode: app.globalData.shopCode,
-            pageSize : pageSize,
-            page : page,
-            isUse : 1,
-        };
+    // onReachBottom: function (e) {
+    //     let that = this;
+    //     wx.showNavigationBarLoading();
+    //     if (that.data.is_loadmore == false) {
+    //         wx.hideNavigationBarLoading();
+    //         return false;
+    //     }
+    //     pageSize += 20;
+    //     // var this_cate_id = that.data.this_cate_id;
+    //     let searchData = {
+    //         shopCode: app.globalData.shopCode,
+    //         pageSize : pageSize,
+    //         page : page,
+    //         isUse : that.data.isUse,
+    //     };
         
-        switch (that.data.select_type){
-            case 'shangjia':
-                searchData. isUse = 1;
-                break;
-            case 'xiajia':
-                searchData.isUse = 0;
-                break;
-            case 'xiaoliang':
-                searchData.salesNum = that.data.sheng_jiang;
-                break;
-            case 'haoping':
-                searchData.commentNum = that.data.sheng_jiang;
-            break;
-        }
-       
-        that.selectFun(searchData);
+    //     switch (that.data.select_type){
+    //         case 'quanbu': 
+    //             searchData.isUse = -1;
+    //         case 'shangjia':
+    //             searchData.isUse = 1;
+    //             break;
+    //         case 'xiajia':
+    //             searchData.isUse = 2;
+    //             break;
+    //         case 'qiangzhixiajia':
+    //             searchData.isUse = 3;
+    //             break;
+    //         case 'shenhe':
+    //             searchData.isUse = 4;
+    //             break;
+    //         case 'xiaoliang':
+    //             searchData.salesNum = that.data.sheng_jiang;
+    //             break;
+    //         case 'haoping':
+    //             searchData.commentNum = that.data.sheng_jiang;
+    //         break;
+           
+    //     }
+    //     that.selectFun(searchData);
 
-    },
+    // },
 
     /**
      * 条件查询
@@ -130,19 +146,39 @@ Page({
         };
         // 升2,降1
         switch (s_type){
+            case 'quanbu':
+                data.isUse = -1;  // 全部
+                that.setData({
+                    isUse:-1
+                });
+                break;
             case 'shangjia':
                 that.setData({ 
                     sheng_jiang: 2, 
-                    is_select_shangjia: true 
+                    is_select_shangjia: true,
+                    isUse:1
                 });
                 data.isUse = 1;  // 上架1
                 break;
             case 'xiajia':
                 that.setData({ 
                     sheng_jiang: 1, 
-                    is_select_xiajia: true 
+                    is_select_xiajia: true,
+                    isUse:2
                 });
                 data.isUse = 2;  // 下架2
+                break;
+            case 'qiangzhixiajia':
+                data.isUse = 3;  // 禁止上架,强制下架
+                that.setData({
+                    isUse: 3
+                });
+                break;
+            case 'shenhe':
+                data.isUse = 4; // 未上架,审核中
+                that.setData({
+                    isUse: 4
+                });
                 break;
             case 'xiaoliang':
                 if (that.data.is_select_xiaoliang == true) {
@@ -172,11 +208,7 @@ Page({
                 }
                 data.commentNum = that.data.sheng_jiang;
                 break;
-            case 'shenhe':
-                data.isUse = 0; // 未上架,审核中
-                break;
-            case 'qiangzhixiajia':
-                data.isUse = 3;  // 禁止上架,强制下架
+           
         }
         that.setData({ 
             select_type: s_type, 
@@ -199,13 +231,14 @@ Page({
             // console.log(data);
             that.setData({
                 goods_data: data.PageInfo.list,
-                glo_is_load: false
+                glo_is_load: false,
+                floorstatus:true
             });
         });
     },
 
     /**
-     * 删除商品
+     * 删除商品 isUse=0
      */
     deleteGoods:function(e){
         let that= this;
@@ -216,7 +249,7 @@ Page({
                 if (res.confirm) {
                     let goodsId = e.currentTarget.dataset.goodsid;
                     // console.log(goodsId);
-                    funData.deleteGoods(goodsId,4,that,()=>{
+                    funData.deleteGoods(goodsId,0,that,()=>{
                         wx.showToast({
                             title: '删除成功',
                             icon: 'success',
@@ -234,22 +267,22 @@ Page({
      * 修改商品
      */
     editGoods:function(e){
-        let that = this;
-        wx.showModal({
-            title: '修改商品',
-            content: '确定修改此件商品吗',
-            success: function (res) {
-                if (res.confirm) {
+        // let that = this;
+        // wx.showModal({
+        //     title: '修改商品',
+        //     content: '确定修改此件商品吗',
+        //     success: function (res) {
+        //         if (res.confirm) {
                     let goodsId = e.currentTarget.dataset.goodsid;
                     console.log(goodsId);
                     wx.navigateTo({
                         url: '/pages/myGoods/editGoods/editGoods?goodsId='+goodsId,
                     })
-                } else if (res.cancel) {
+        //         } else if (res.cancel) {
 
-                }
-            }
-        })
+        //         }
+        //     }
+        // })
     },
 
     /**
@@ -333,4 +366,44 @@ Page({
         });
     },
 
+    /**
+     * 滚动到底部/右边，会触发 scrolltolower 事件
+     */
+    scrollToLower:function(){
+        let that = this;
+        pageSize += 20;
+        console.log(pageSize);
+        // var this_cate_id = that.data.this_cate_id;
+        let searchData = {
+            shopCode: app.globalData.shopCode,
+            pageSize: pageSize,
+            page: page,
+            isUse: that.data.isUse,
+        };
+
+        switch (that.data.select_type) {
+            case 'quanbu':
+                searchData.isUse = -1;
+            case 'shangjia':
+                searchData.isUse = 1;
+                break;
+            case 'xiajia':
+                searchData.isUse = 2;
+                break;
+            case 'qiangzhixiajia':
+                searchData.isUse = 3;
+                break;
+            case 'shenhe':
+                searchData.isUse = 4;
+                break;
+            case 'xiaoliang':
+                searchData.salesNum = that.data.sheng_jiang;
+                break;
+            case 'haoping':
+                searchData.commentNum = that.data.sheng_jiang;
+                break;
+
+        }
+        that.selectFun(searchData);
+    },
 })

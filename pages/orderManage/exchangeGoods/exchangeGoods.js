@@ -8,7 +8,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        exchange:null
+        order_uuid:null,
+        exchange:null,
+        exchage_status: null
     },
 
     /**
@@ -16,12 +18,17 @@ Page({
      */
     onLoad: function (options) {
         let that = this;
-        funData.getGoodBack(options.order_uuid,this,(data)=>{
+        funData.getGoodBack(options.order_uuid, that,(data)=>{
             console.log(data);
+            
+            that.setData({
+                order_uuid: options.order_uuid,
+                exchage_status: 2
+            });
             // let exchange = Object.assign(data[0], data[1]);
             // exchange.createTime = util.formatDate(exchange.createTime, 'YY-MM-DD hh:mm:ss');
             // exchange.replyTime = util.formatDate(exchange.replyTime, 'YY-MM-DD hh:mm:ss');
-            // // console.log(exchange)
+            // console.log(exchange)
             // that.setData({
             //     exchange: exchange
             // });
@@ -76,5 +83,37 @@ Page({
      */
     onShareAppMessage: function () {
 
-    }
+    },
+
+    /**
+     * 同意换货
+     */
+    agreeExchange:function(){
+        let that = this;
+        wx.showModal({
+            title: '换货',
+            content: '是否同意换货',
+            success: function (res) {
+                if (res.confirm) {
+                    funData.updateBackStatus(that.data.order_uuid,that,()=>{
+                        wx.showToast({
+                            title: '同意换货成功',
+                            icon: 'success',
+                            duration: 1000
+                        });
+                        that.setData({
+                            exchage_status:3
+                        });
+                    });
+                } else if (res.cancel) {
+                    wx.showToast({
+                        title: '拒绝换货',
+                        icon: 'none',
+                        duration: 1000
+                    })
+                }
+            }
+        })
+    },
+
 })

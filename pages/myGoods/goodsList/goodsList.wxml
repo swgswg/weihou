@@ -5,14 +5,30 @@
     </view>
 </block>
 <block wx:else>
+ <!-- <navigator url="/pages/myGoods/addGoods/addGoods" bindtap='addGoods' class='m10 button button-primary button-rounded  button-wx-small'>添加新商品</navigator> -->
     <!--filter start-->
     <view class="filter-box tc">
         <view class="filter gridXb flex">
-            <view class="sub filter-item filter-item-shang {{select_type == 'shangjia' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="shangjia">上架</view>
-            <view class="sub filter-item  {{select_type == 'xiajia' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="xiajia">下架</view>
+            <view class="sub  {{select_type == 'quanbu' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="quanbu">全部</view>
+            <view class="sub {{select_type == 'shangjia' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="shangjia">上架</view>
+            <view class="sub {{select_type == 'xiajia' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="xiajia">下架</view>
+            <view class="sub {{select_type == 'shenhe' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="shenhe">审核中</view>
+            <view class="sub {{select_type == 'qiangzhixiajia' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="qiangzhixiajia">强制下架  </view>
+            <!-- <view class="sub price-rank {{is_select_xiaoliang ? 'pr-arrow' : ''}} {{select_type == 'xiaoliang' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="xiaoliang">销量</view> -->
+            <!-- <view class="sub price-rank {{is_select_haoping ? 'pr-arrow' : ''}} {{select_type == 'haoping' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="haoping">好评</view> -->
+        </view>
+        
+    </view>
+    <view class="filter-box tc">
+        <view class="filter2 gridXb flex">
             <view class="sub price-rank {{is_select_xiaoliang ? 'pr-arrow' : ''}} {{select_type == 'xiaoliang' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="xiaoliang">销量</view>
             <view class="sub price-rank {{is_select_haoping ? 'pr-arrow' : ''}} {{select_type == 'haoping' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="haoping">好评</view>
+            <!-- <view class="sub {{select_type == 'xiajia' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="xiajia">下架</view> -->
+            <!-- <view class="sub {{select_type == 'shenhe' ? 'active' : ''}}" bindtap="select_goods_list" data-stype="shenhe">审核中</view> -->
+           <navigator url="/pages/myGoods/addGoods/addGoods" bindtap='addGoods' class='m10 button button-primary button-rounded  button-wx-small'>添加新商品</navigator>
+            
         </view>
+        
     </view>
     <!-- <view class="search">
     <view class="search-box flex">
@@ -20,14 +36,15 @@
         <button size="mini" class="search-btn"><icon type="search" size="18" /></button>
     </view>
   </view> -->
-    <navigator url="/pages/myGoods/addGoods/addGoods" bindtap='addGoods' class='m10 button button-primary button-rounded  button-wx-small'>添加新商品</navigator>
-    <text bindtap="select_goods_list" data-stype="shenhe" class='button button-action button-rounded  button-wx-small'>审核中</text>
-    <text bindtap="select_goods_list" data-stype="qiangzhixiajia" class='ml10 button button-highlight button-rounded button-wx-small'>强制下架</text>
+    <!-- <navigator url="/pages/myGoods/addGoods/addGoods" bindtap='addGoods' class='m10 button button-primary button-rounded  button-wx-small'>添加新商品</navigator> -->
+    <!-- <text bindtap="select_goods_list" data-stype="shenhe" class='button button-action button-rounded  button-wx-small'>审核中</text> -->
+    <!-- <text bindtap="select_goods_list" data-stype="qiangzhixiajia" class='ml10 button button-highlight button-rounded button-wx-small'>强制下架</text> -->
     <!--filter end-->
 
     <!--list start-->
     <view class="malllist">
         <block wx:if="{{goods_data && goods_data != '' && goods_data != null}}">
+            <scroll-view scroll-y="true" style='width:100%;height:920rpx;' bindscrolltolower="scrollToLower">
             <block wx:for="{{goods_data}}" wx:key="{{item.goodsId}}">
                 <view class="m-item flex" id="{{item.goodsId}}">
                     <view class="m-imgbox">
@@ -45,7 +62,7 @@
                             <!-- <block wx:if="{{item.promote_status == 1}}"> -->
                             <!-- <text class="iconfont icon-xiajia"></text> -->
                             <text class="f20">￥{{item.price}}</text>
-                            <text class='ml10'>库存{{item.stock}}</text>
+                            <!-- <text class='ml10'>库存{{item.stock}}</text> -->
                             <!-- </block> -->
                             <!-- <block wx:else>
                             <block wx:if="{{item.vip_price > 0}}">
@@ -72,6 +89,7 @@
                     </view>
                 </view>
             </block>
+            </scroll-view>
         </block>
     </view>
     <!--list end-->

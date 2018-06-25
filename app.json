@@ -1,5 +1,6 @@
 {
     "pages":[
+        
         "pages/myself/myself",
         "pages/moneyManage/moneyManage",
         "pages/moneyManage/moneyDetail/moneyDetail",

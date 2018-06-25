@@ -46,6 +46,9 @@ page{
 .margin-right12 {
     margin-right: 12px;
 }
+.margin-right10 {
+    margin-right: -10px;
+}
 
 .normalColor {
     color: #545454;

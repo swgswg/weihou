@@ -1884,30 +1884,30 @@ function drawCharts(type, opts, config, context) {
 // simple event implement
 
 function Event() {
-	this.events = {};
+    this.events = {};
 }
 
 Event.prototype.addEventListener = function (type, listener) {
-	this.events[type] = this.events[type] || [];
-	this.events[type].push(listener);
+    this.events[type] = this.events[type] || [];
+    this.events[type].push(listener);
 };
 
 Event.prototype.trigger = function () {
-	for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-		args[_key] = arguments[_key];
-	}
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+    }
 
-	var type = args[0];
-	var params = args.slice(1);
-	if (!!this.events[type]) {
-		this.events[type].forEach(function (listener) {
-			try {
-				listener.apply(null, params);
-			} catch (e) {
-				console.error(e);
-			}
-		});
-	}
+    var type = args[0];
+    var params = args.slice(1);
+    if (!!this.events[type]) {
+        this.events[type].forEach(function (listener) {
+            try {
+                listener.apply(null, params);
+            } catch (e) {
+                console.error(e);
+            }
+        });
+    }
 };
 
 var Charts = function Charts(opts) {

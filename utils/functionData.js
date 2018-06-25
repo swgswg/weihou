@@ -130,7 +130,6 @@ module.exports = {
                         icon: 'none'
                     })
                 }
-
             }
         })
     },
@@ -271,10 +270,12 @@ module.exports = {
     },
 
     // 查询订单(查店铺的订单)
-    getOrder: function (shopCode,mystatus, pageobj, callback) {
+    getOrder: function (shopCode, mystatus, mypage, mypageSize, pageobj, callback) {
         let data = {
             shop_code: shopCode,
-            status:mystatus
+            status:mystatus,
+            page:mypage,
+            pageSize:mypageSize
         }
         this.requestUrl(data, urlData.getOrderUrl, pageobj, callback);
     },
@@ -298,11 +299,12 @@ module.exports = {
 
     // 对订单数据的处理
     dealOrderData:function(data){
+        // console.log(data);
         let order = [];
         let k = 0;
         // 将订单号相同的合并为一个数组
         for (let i = 0; i < data.length; i++) {
-            data[i].createTime = util.formatDate(data[i].createTime, 'YY-MM-DD hh:mm:ss');
+            // data[i].createTime = util.formatDate(data[i].createTime, 'YY-MM-DD hh:mm:ss');
             order[k] = [];
             order[k].push(data[i]);
             for (let j = i + 1; j < data.length; j++) {
@@ -333,7 +335,7 @@ module.exports = {
             let sum = 0;
             let goods_len = order[i].goods.length;
             for (let j = 0; j < goods_len; j++) {
-                order[i].goods[j].sum = calculate.calcMul(order[i].goods[j].num, order[i].goods[j].price);
+                order[i].goods[j].sum = calculate.calcMul(order[i].goods[j].num, order[i].goods[j].goodsPrice);
                 sum = calculate.calcAdd(sum, order[i].goods[j].sum);
             }
             order[i].sumPrice = sum;
@@ -385,6 +387,7 @@ module.exports = {
         }
         this.requestUrl(data, urlData.getMoneyByDayUrl, pageobj, callback);
     },
+
     // 修改商家logo信息
     updateInfoLogo: function (shopCode, mylogo, pageobj, callback){
         let data = {
@@ -393,6 +396,7 @@ module.exports = {
         }
         this.requestUrl(data, urlData.updateInfoUrl, pageobj, callback);
     },
+
     // 修改商家信息 名称,手机,地址
     updateInfo: function (shopCode, myshop_name, myshop_addr, mymobile, pageobj, callback){
         let data = {
@@ -493,7 +497,30 @@ module.exports = {
         }
         this.requestUrl(data, urlData.getUserByCodeUrl, pageobj, callback);   
     },
+
+    // 商家提现
+    withdraw: function (shopCode, mycard_no, myprice, myowner, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+            card_no: mycard_no,
+            price: myprice,
+            owner: myowner
+        }
+        this.requestUrl(data, urlData.withdrawUrl, pageobj, callback);   
+    },
+
+    // 修改退换货状态
+    updateBackStatus: function (myorder_uuid, pageobj, callback){
+        let data = {
+            order_uuid: myorder_uuid
+        }
+        this.requestUrl(data, urlData.updateBackStatus, pageobj, callback);   
+    },
+
+
 }   
+
+
 
 
 

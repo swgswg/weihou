@@ -12,8 +12,10 @@ Page({
         list_img: [],
         list_img_hidden: true,
         swiper_img: [],
+        swiper_sort:{},
         swiper_img_hidden: true,
         goodsDetail_img: [],
+        goodsDetail_sort:{},
         goodsDetail_img_hidden: true,
         aliyunUrl: urlData.uploadFileUrl
     },
@@ -38,18 +40,22 @@ Page({
             let len = picture.length;
             let list_img = [];
             let swiper_img = [];
+            let swiper_sort = that.data.swiper_sort;
             let goodsDetail_img = [];
+            let goodsDetail_sort = that.data.goodsDetail_sort;
             let list_img_hidden = null;
             let swiper_img_hidden = null;
             let goodsDetail_img_hidden = null;
-
+            
             for(let i = 0; i < len; i++){
                 if(picture[i].status == 1){
                     list_img.push(picture[i].img);
                 } else if (picture[i].status == 2){
-                    swiper_img.push(picture[i].img);
+                    swiper_img.push(picture[i]);
+                    // swiper_sort[picture[i].img] = picture[i].sort;
                 } else if (picture[i].status == 3){
-                    goodsDetail_img.push(picture[i].img);
+                    goodsDetail_img.push(picture[i]);
+                    // goodsDetail_sort[picture[i].img] = picture[i].sort;
                 }
             }
             if (list_img.length >= 1){
@@ -61,12 +67,14 @@ Page({
             if (goodsDetail_img.length >= 4){
                 goodsDetail_img_hidden = false;
             }
-
+            // console.log(swiper_img);
             that.setData({
                 goodsInfo: data,
                 list_img: list_img,
                 swiper_img: swiper_img,
+                // swiper_sort: swiper_sort,
                 goodsDetail_img: goodsDetail_img,
+                // goodsDetail_sort: goodsDetail_sort,
                 list_img_hidden: list_img_hidden,
                 swiper_img_hidden: swiper_img_hidden,
                 goodsDetail_img_hidden: goodsDetail_img_hidden
@@ -162,6 +170,21 @@ Page({
     },
 
     /**
+     * 轮播图排序
+     */
+    swiperSort: function (e) {
+        let that = this;
+        // console.log(e);
+        let swiper_sort = that.data.swiper_sort;
+        let img = e.currentTarget.dataset.sort;
+        swiper_sort[img] = e.detail.value;
+        // console.log(swiper_sort)
+        that.setData({
+            swiper_sort: swiper_sort
+        });
+    },
+
+    /**
      * 添加商品详情图片,规定4张
      */
     addgoodsDetailImg: function () {
@@ -179,6 +202,21 @@ Page({
             });
         });
 
+    },
+
+    /**
+     * 详情图片排序
+     */
+    detailSort: function (e) {
+        let that = this;
+        let goodsDetail_sort = that.data.goodsDetail_sort;
+        let img = e.currentTarget.dataset.sort;
+        // console.log(img)
+        goodsDetail_sort[img] = e.detail.value;
+        // console.log(goodsDetail_sort);
+        that.setData({
+            goodsDetail_sort: goodsDetail_sort
+        });
     },
 
     /**
@@ -222,30 +260,56 @@ Page({
         let goods = e.detail.value;
         let list_img = that.data.list_img;
         let swiper_img = that.data.swiper_img;
+        let swiper_sort = that.data.swiper_sort;
         let goodsDetail_img = that.data.goodsDetail_img;
+        let goodsDetail_sort = that.data.goodsDetail_sort;
         let status = ''; // 存放图片的状态, 列表图1,轮播图2,详情图3
         let img = '';    // 存放图片
+        let sort = '';   // 存放图片排序
         // 商品列表图
         let list_img_len = list_img.length;
         for (let i = 0; i < list_img_len; i++) {
             img += list_img[i] + ',';
-            status += '1,'
+            status += '1,';
+            sort += '0,'
         }
         // 商品轮播图
         let swiper_img_len = swiper_img.length;
         for (let i = 0; i < swiper_img_len; i++) {
             img += swiper_img[i] + ',';
-            status += '2,'
+            status += '2,';
+            if (JSON.stringify(swiper_sort) != "{}") {
+                for (let k in swiper_sort) {
+                    if (k == swiper_img[i]) {
+                        sort += swiper_sort[k] + ',';
+                    }
+                }
+            } else {
+                sort += i + ',';
+                console.log(111)
+            }
         }
         // 商品详情图
         let goodsDetail_img_len = goodsDetail_img.length;
         for (let i = 0; i < goodsDetail_img_len; i++) {
             img += goodsDetail_img[i] + ',';
-            status += '3,'
+            status += '3,';
+            if (JSON.stringify(goodsDetail_sort) != "{}") {
+                for (let m in goodsDetail_sort) {
+                    if (m == goodsDetail_img[i]) {
+                        sort += goodsDetail_sort[m] + ',';
+                    }
+                }
+            } else {
+                sort += i + ',';
+                console.log(222)
+
+            }
         }
         goods.img = img;
         goods.status = status;
         goods.goodsId = that.data.goodsInfo.goodsId;
+        goods.sort = sort;
         // goods.shopCode = app.globalData.shopCode;
         console.log(goods);
         // 修改商品

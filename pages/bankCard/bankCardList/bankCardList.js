@@ -18,7 +18,7 @@ Page({
     onLoad: function (options) {
         let that = this;
         funData.getCardByCode(app.globalData.shopCode, that, (data)=>{
-            console.log(data);
+            // console.log(data);
             let len = data.length;
             for(let i = 0; i < len; i++){
                 data[i].card_no = util.bankCardByStar(data[i].card_no);
@@ -85,7 +85,7 @@ Page({
     selectBankCard:function(e){
         let prevUrl = util.getPrevPageUrl();
         // pages/myself/myMoney/myMoney
-        console.log(prevUrl);
+        // console.log(prevUrl);
         wx.navigateTo({
             url: '/' + util.getPrevPageUrl() + '?cid=' + e.currentTarget.dataset.cid
         })

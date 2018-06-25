@@ -58,4 +58,8 @@ module.exports = {
     getTransInfoUrl: baseUrl +'MicroPlatform/transInfo/getTransInfo',
     // 查询收藏商店的用户
     getUserByCodeUrl: baseUrl +'MicroPlatform/shop/getUserByCode',
+    // 商家提现
+    withdrawUrl: baseUrl + 'MicroPlatform/shop/withdraw',
+    // 修改退换货状态
+    updateBackStatus: baseUrl + 'MicroPlatform/goodsBack/updateBackStatus',
 }

@@ -6,6 +6,7 @@ const funData = require('../../utils/functionData.js');
 const calculate = require('../../utils/calculate.js');
 var page = 1;
 var pageSize = 20;
+var mystatus = -1;
 Page({
     data: {
         glo_is_load:true,
@@ -34,55 +35,24 @@ Page({
         })
     },
 
-    // catchtouchend: function (e) {
-    //     let that = this;
-    //     let currentNum = parseInt(this.data.currentNavtab);
-
-    //     // that.endX = e.changedTouches[0].clientX;
-    //     // that.endY = e.changedTouches[0].clientY;
-
-    //     // if(that.endX  - that.startX > 10 && currentNum > 0){
-    //     //   currentNum -= 1;
-    //     // }
-
-    //     // if(that.endX - that.startX < -10 && currentNum< this.data.navTab.length -1){
-    //     //   currentNum=currentNum + 1;
-    //     // }
-
-    //     let endPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
-    //     let startPoint = that.data.startPoint
-    //     if (endPoint[0] <= startPoint[0]) {
-    //         if (Math.abs(endPoint[0] - startPoint[0]) >= Math.abs(endPoint[1] - startPoint[1]) && currentNum < this.data.navTab.length - 1) {
-    //             currentNum = currentNum + 1;
-    //         }
-    //     } else {
-    //         if (Math.abs(endPoint[0] - startPoint[0]) >= Math.abs(endPoint[1] - startPoint[1]) && currentNum > 0) {
-    //             currentNum -= 1;
-    //         }
-    //     }
-
-    //     this.setData({
-    //         currentNavtab: currentNum
-    //     });
-    // },
 
     /**
      * 拨打电话
      */
-    callEvent: function (e) {
-        console.log(e)
-        wx.makePhoneCall({
-            phoneNumber: this.data.phoneNum
-        })
-    },
+    // callEvent: function (e) {
+    //     console.log(e)
+    //     wx.makePhoneCall({
+    //         phoneNumber: this.data.phoneNum
+    //     })
+    // },
 
     // 加载
     onLoad: function (options) {
         let that = this
         if (that.data.currentNavtab == 0) {
-            var mystatus = -1;
+            mystatus = -1;
         }
-        that.getOrder(mystatus,that);
+        that.getOrder(mystatus, that, page, pageSize);
     },
 
     /**
@@ -98,23 +68,25 @@ Page({
     },
 
     // 查询各种状态的订单
-    statusOrder:function(mystatus,that){
-       if(mystatus == 0){
+    statusOrder:function(tabstatus,that){
+        if (tabstatus == 0){
            mystatus = -1;
-       } else if(mystatus == 4){
+        } else if (tabstatus == 4){
             mystatus = 67;
+        } else {
+            mystatus = tabstatus;
         }
         // console.log(mystatus);
-        that.getOrder(mystatus,that);
+       that.getOrder(mystatus, that, page, pageSize);
     },
 
     // 查询订单
-    getOrder: function (mystatus,that){
+    getOrder: function (mystatus, that, page, pageSize){
         // 查询店铺订单
-        funData.getOrder(app.globalData.shopCode, mystatus, that, function(data) {
-            //  console.log(data);
+        funData.getOrder(app.globalData.shopCode, mystatus,page, pageSize, that, function(data) {
+            // console.log(data.PageInfo.list);
             // 对订单数据格式的转化
-            let order = funData.dealOrderData(data);
+            let order = funData.dealOrderData(data.PageInfo.list);
             // console.log(order);
             that.setData({
                 order: order,
@@ -132,36 +104,6 @@ Page({
             url: '/pages/orderManage/sendGoods/sendGoods',
         })
     },
-    // sendGoods:function(e){
-    //     let that = this;
-    //     wx.showModal({
-    //         title: '发货',
-    //         content: '是否确认发货',
-    //         success: function (res) {
-    //             if (res.confirm) {
-    //                 wx.showToast({
-    //                     title: '发货成功',
-    //                     icon: 'success',
-    //                     duration: 1000,
-    //                     success:function(){
-    //                          // 同步改变数据库订单状态
-    //                         funData.updateOrderStatus(e.currentTarget.dataset.order_mainid, that.data.to_be_received, that,()=>{
-    //                             // 同步改变页面订单状态
-    //                             that.changeOrderStatus(e.currentTarget.dataset.index,that.data.to_be_received,that);
-    //                         });
-    //                     }
-    //                 });
-                   
-    //             } else if (res.cancel) {
-    //                 wx.showToast({
-    //                     title: '取消发货',
-    //                     icon: 'none',
-    //                     duration: 1000
-    //                 });
-    //             }
-    //         }
-    //     })
-    // },
 
     // 改变状态 同步修改数据
     changeOrderStatus: function(index,mystatus,that){
@@ -232,4 +174,16 @@ Page({
             url: '/pages/orderManage/express/express?order_uuid=' + e.currentTarget.dataset.order_uuid
         })
     },
+
+    /**
+     * 滚动到底部/右边，会触发 scrolltolower 事件
+     */
+    scrollToLower:function(){
+        let that = this;
+        pageSize += 20;
+        // console.log(pageSize);
+        // console.log(mystatus)
+        that.getOrder(mystatus, that, page, pageSize);
+    },
+
 })

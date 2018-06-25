@@ -177,9 +177,9 @@ tableViewCellStyle {
     color: #999;
 }
 
-.tableViewX {
+.tableView {
     width: 100%;
-    height: auto;
+    height: 920rpx;
 }
 
 .top-tab {

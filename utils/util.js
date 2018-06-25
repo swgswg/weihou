@@ -79,7 +79,7 @@ function repeatArr(myvalue, mylength) {
 /**
  * 验证正则
  */
-function checkReg(flag, tel) {
+function checkReg(flag, data) {
     let reg = null;
     switch (flag) {
         case 1:
@@ -93,8 +93,12 @@ function checkReg(flag, tel) {
         case 3:
             // 银行卡号
             reg = /^([1-9]{1})(\d{15}|\d{18})$/;
+        case 4:
+            // 带小数的金额
+            reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+            break;
     }
-    return reg.test(tel);
+    return reg.test(data);
 }
 
 /**

@@ -60,10 +60,10 @@
         <text class="cellContent">{{card.bank}} {{card.card_no}}</text>
         <label class="lineSpace"></label>
     </view>
-    <view class="cell" catchtap='showUserCollection'>
+    <!-- <view class="cell" catchtap='showUserCollection'>
         <image class="cellImage" src="/images/shoucang.png"></image>
         <text class="cellTitle" >用户收藏</text>
         <text class="cellContent">查看收藏我的用户</text>
         <label class="lineSpace"></label>
-    </view>
+    </view> -->
 </view>

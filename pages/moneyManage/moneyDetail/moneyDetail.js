@@ -14,9 +14,13 @@ Page({
     data: {
         start:null,
         end:null,
+        currentNav:'month',
+        Range:null,
+        Money:null,
         deviceW: 0,
         deviceH: 0,
         currtab: 0,
+        start:'2018-7-15'
     },
 
     /**
@@ -219,7 +223,8 @@ Page({
         console.log('picker发送选择改变，携带值为', e.detail.value);
         this.getMoneyByDay(e.detail.value,-1,that);
         this.setData({
-            year: e.detail.value
+            year: e.detail.value,
+            currentNav:'year'
         });
 
     },
@@ -233,7 +238,8 @@ Page({
         let val = e.detail.value.split('-');
         this.getMoneyByDay(val[0],val[1],that);
         this.setData({
-            month: e.detail.value
+            month: e.detail.value,
+            currentNav:'month'
         });
 
     },
@@ -263,6 +269,10 @@ Page({
                 console.log(Money);
                 // that.barShow(Range, Money,title);
                 that.line(Range, Money, title);
+                that.setData({
+                    Range:Range,
+                    Money:Money
+                })
             });
         } else {
             let day = getDaysInOneMonth(year, month);  // 获取指定年月的天数
@@ -282,6 +292,10 @@ Page({
                 // console.log(Money);
                 // that.barShow(Range, Money,title);
                 that.line(Range, Money, title);
+                that.setData({
+                    Range: Range,
+                    Money: Money
+                })
             });
         }
         
