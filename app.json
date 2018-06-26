@@ -1,17 +1,18 @@
 {
     "pages":[
-        
         "pages/myself/myself",
+        "pages/apply/auditing/auditing",
+        "pages/myGoods/goodsList/goodsList",
+        "pages/apply/apply",
+        
         "pages/moneyManage/moneyManage",
         "pages/moneyManage/moneyDetail/moneyDetail",
-
         "pages/bankCard/bankCardList/bankCardList",
         "pages/bankCard/addBankCard/addBankCard",
-        
         "pages/orderManage/orderManage",
         "pages/orderManage/returnGoods/returnGoods",
         "pages/orderManage/exchangeGoods/exchangeGoods",
-        "pages/myGoods/goodsList/goodsList",
+       
         "pages/myGoods/goodsDetail/goodsDetail",
         "pages/myGoods/addGoods/addGoods",
         "pages/myGoods/editGoods/editGoods",
@@ -26,9 +27,8 @@
         "pages/myself/directionsForUse/directionsForUse",
         "pages/myself/feedBack/feedBack",
         "pages/login/login",
-        "pages/icon/iconList/iconList",
         "pages/logs/logs"
-        
+      
     ],
     "window":{
         "backgroundTextStyle":"light",

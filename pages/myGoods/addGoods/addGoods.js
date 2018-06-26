@@ -16,7 +16,22 @@ Page({
         goodsDetail_img: [],
         goodsDetail_sort:{},
         goodsDetail_img_hidden: true,
-        aliyunUrl: urlData.uploadFileUrl
+        aliyunUrl: urlData.uploadFileUrl,
+        goods_spec:{
+            color_spec:[],
+            size_spec:[],
+            capacity_spec:[],
+            type_spec:[],
+            taste_spec:[],
+        },
+        goods_spec_value:{
+            color_spec_value: [],
+            size_spec_value: [],
+            capacity_spec_value: [],
+            type_spec_value: [],
+            taste_spec_value: []
+        },
+        
     },
 
     /**
@@ -83,6 +98,75 @@ Page({
     },
 
     /**
+     * 添加类型
+     */
+    spec:function(e){
+        let that = this;
+        // 获取类型
+        let myspec = e.currentTarget.dataset.spec;
+        let goods_spec = that.data.goods_spec;
+        // 动态获取类型变量
+        let data = goods_spec[myspec];
+        // 动态添加类型输入框
+        data.push(data.length);
+        // 重新赋值
+        goods_spec[myspec] = data;
+        that.setData({
+            goods_spec: goods_spec
+        }) 
+
+    },
+
+    /**
+     * 获取类型值
+     */
+    specInput:function(e){
+        let that = this;
+        let goods_spec_value = that.data.goods_spec_value;
+        let myspec = e.currentTarget.dataset.spec;
+        let myspec_value = myspec + '_value';
+        let data = goods_spec_value[myspec_value];
+        // 获取点击按钮的下标
+        let index = e.currentTarget.dataset.index;
+        // 获取输入框的值
+        let val = e.detail.value;
+        data.splice(index,1,val);
+        // 重新赋值
+        goods_spec_value[myspec_value] = data;
+        that.setData({
+            goods_spec_value: goods_spec_value
+        });
+        return val;
+    },
+
+    /**
+     * 删除类型
+     */
+    cancleInput:function(e){
+        let that = this;
+        let goods_spec = that.data.goods_spec;
+        let goods_spec_value = that.data.goods_spec_value;
+        // console.log(goods_spec);
+        // console.log(goods_spec_value);
+        
+        let myspec = e.currentTarget.dataset.spec;
+        let myspec_value = myspec + '_value';
+        let data_spec = goods_spec[myspec];
+        let data_value = goods_spec_value[myspec_value];
+        let index = e.currentTarget.dataset.index;
+        
+        // console.log(data_spec)
+        data_spec.splice(index,1);
+        data_value.splice(index,1);
+        goods_spec[myspec] = data_spec;
+        goods_spec_value[myspec_value] = data_value;
+        that.setData({
+            goods_spec: goods_spec,
+            goods_spec_value: goods_spec_value
+        });
+    },
+
+    /**
      * 添加商品列表图片
      */
     addlistImg: function () {
@@ -107,15 +191,22 @@ Page({
     addswiperImg: function () {
         let that = this;
         let swiper_img = that.data.swiper_img;
+        let swiper_sort = that.data.swiper_sort;
         let swiper_img_hidden = that.data.swiper_img_hidden;
         funData.myUpload(function (newsrc, fileNmae) {
             swiper_img.push(fileNmae);
-            if (swiper_img.length >= 3) {
-                swiper_img_hidden = !swiper_img_hidden;
+            for(let i = 0; i < swiper_img.length; i++){
+                if (swiper_img[i] == fileNmae){
+                    swiper_sort[swiper_img[i]] = i;
+                }
             }
+            // if (swiper_img.length >= 3) {
+            //     swiper_img_hidden = !swiper_img_hidden;
+            // }
             that.setData({
                 swiper_img: swiper_img,
-                swiper_img_hidden: swiper_img_hidden
+                swiper_sort: swiper_sort,
+                // swiper_img_hidden: swiper_img_hidden
             });
         });
     },
@@ -127,6 +218,7 @@ Page({
         let that = this;
         // console.log(e);
         let swiper_sort = that.data.swiper_sort;
+        let index = e.currentTarget.dataset.index;
         let img = e.currentTarget.dataset.sort;
         swiper_sort[img] = e.detail.value;
         // console.log(swiper_sort)
@@ -141,15 +233,22 @@ Page({
     addgoodsDetailImg: function () {
         let that = this;
         let goodsDetail_img = that.data.goodsDetail_img;
+        let goodsDetail_sort = that.data.goodsDetail_sort;
         let goodsDetail_img_hidden = that.data.goodsDetail_img_hidden;
         funData.myUpload(function (newsrc, fileNmae) {
             goodsDetail_img.push(fileNmae);
-            if (goodsDetail_img.length >= 4) {
-                goodsDetail_img_hidden = !goodsDetail_img_hidden;
+            for (let i = 0; i < goodsDetail_img.length; i++){
+                if (goodsDetail_img[i] == fileNmae){
+                    goodsDetail_sort[goodsDetail_img[i]] = i;
+                }
             }
+            // if (goodsDetail_img.length >= 4) {
+            //     goodsDetail_img_hidden = !goodsDetail_img_hidden;
+            // }
             that.setData({
                 goodsDetail_img: goodsDetail_img,
-                goodsDetail_img_hidden: goodsDetail_img_hidden
+                goodsDetail_sort: goodsDetail_sort,
+                // goodsDetail_img_hidden: goodsDetail_img_hidden
             });
         });
 
@@ -273,10 +372,16 @@ Page({
                 
             }
         }
-        goods.img = img;
-        goods.status = status;
-        goods.shopCode = app.globalData.shopCode;
-        goods.sort = sort;
+        goods.img = img; // 图片
+        goods.status = status;  // 图片转态
+        goods.shopCode = app.globalData.shopCode; // 商品编号
+        goods.sort = sort; // 图片排序
+        goods.color = that.data.goods_spec_value.color_spec_value.join(','); // 颜色规格
+        goods.size = that.data.goods_spec_value.size_spec_value.join(','); // 尺码规格
+        goods.type = that.data.goods_spec_value.type_spec_value.join(','); // 类型规格
+        goods.volume = that.data.goods_spec_value.capacity_spec_value.join(','); // 容量规格
+        goods.taste = that.data.goods_spec_value.taste_spec_value.join(','); // 容量规格
+        
         console.log(goods);
         // 添加商品
         funData.insertGoods(goods, that, ()=>{

@@ -4,10 +4,10 @@
             <image class="callImage" src="/images/kefu.png" bindtap="callKeHu"></image>
             <label class="settingLabel"  bindtap="setEvent">设置</label>
         </view>
-        <image catchtap='editProfile' class="portr" src="{{shopInfo.logo ? (aliyunUrl + shopInfo.logo) : '/images/people.png'}}"></image>
+        <image catchtap='editProfile' class="portr" src="{{shopInfo.logo ? (aliyunUrl + shopInfo.logo) : '/images/logo.png'}}"></image>
         <text class="nickName">{{shopInfo.ShopName}}</text>
-        <image class="aixin" src="/images/aixin.png"></image>
-        <text class="welfare_val">公益值 168</text>
+        <!-- <image class="aixin" src="/images/aixin.png"></image> -->
+        <!-- <text class="welfare_val">公益值 168</text> -->
     </view>
     
     <dl class="menu  {{ isHidden===true ? hide:noHid }} ">

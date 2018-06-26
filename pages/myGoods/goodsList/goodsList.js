@@ -45,12 +45,8 @@ Page({
     },
     onLoad: function (options) {
         var that = this;
-        // var this_cate_id = options.cid;
-        // var this_keywords = options.keywords;
-        // that.setData({ this_cate_id: this_cate_id, this_keywords: this_keywords });
-
         // 查询商品列表
-        funData.getGoods(page,pageSize,1,this,(data) => {
+        funData.getGoods(page, pageSize, that, (data) => {
             console.log(data);
             let goods_info = data.PageInfo.list;
             let len = goods_info.length;
@@ -74,14 +70,6 @@ Page({
         });
     },
     onShow: function () {
-        // var that = this;
-        // var requestData = {};
-        // requestData.cid = that.data.this_cate_id;
-        // requestData.pagesize = 1;
-        // requestData.pagenum = that.data.this_page_num;
-        // requestData.keywords = that.data.this_keywords;
-        // requestData.stype = that.data.select_type;
-        // requestData.stype_jiage = that.data.select_jiage_type;
         this.onLoad();
     },
 
@@ -151,6 +139,7 @@ Page({
                 that.setData({
                     isUse:-1
                 });
+                data.isUse = -1;
                 break;
             case 'shangjia':
                 that.setData({ 
@@ -173,12 +162,14 @@ Page({
                 that.setData({
                     isUse: 3
                 });
+                data.isUse = 3;
                 break;
             case 'shenhe':
                 data.isUse = 4; // 未上架,审核中
                 that.setData({
                     isUse: 4
                 });
+                data.isUse = 4;
                 break;
             case 'xiaoliang':
                 if (that.data.is_select_xiaoliang == true) {
@@ -193,6 +184,7 @@ Page({
                     });
                 }
                 data.salesNum = that.data.sheng_jiang;
+                data.isUse = that.data.isUse;
                 break;
             case 'haoping':
                 if (that.data.is_select_haoping == true) {
@@ -207,6 +199,7 @@ Page({
                     });
                 }
                 data.commentNum = that.data.sheng_jiang;
+                data.isUse = that.data.isUse;
                 break;
            
         }
@@ -274,7 +267,7 @@ Page({
         //     success: function (res) {
         //         if (res.confirm) {
                     let goodsId = e.currentTarget.dataset.goodsid;
-                    console.log(goodsId);
+                    // console.log(goodsId);
                     wx.navigateTo({
                         url: '/pages/myGoods/editGoods/editGoods?goodsId='+goodsId,
                     })

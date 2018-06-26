@@ -56,9 +56,9 @@ page{
     font-size: 25rpx; 
 }
 .test2{
-    padding: 20rpx;
+    padding: 10rpx 20rpx 0;
     box-sizing: border-box;
     font-size: 25rpx;
     color: #aaa;
-    border-bottom:1rpx solid #ccc;
+    border-bottom:1rpx solid #ccc; 
 }

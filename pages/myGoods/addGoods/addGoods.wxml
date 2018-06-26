@@ -113,12 +113,12 @@
                                 <input name="price" placeholder='请输入价格' />
                             </view>
                         </view>
-                        <view class="info-each">
+                        <!-- <view class="info-each">
                             <view class='sm-title'>库存</view>
                             <view class='sm-content'>
                                 <input name="stock" placeholder='请输入库存数量' />
                             </view>
-                        </view>
+                        </view> -->
                         <view class="info-each">
                             <view class='sm-title'>描述</view>
                             <view class='sm-content'>
@@ -127,10 +127,63 @@
                         </view>
                         <view class="info-each">
                             <view class='sm-title'>商品规格</view>
-                            <view class='sm-content'>
-                                <textarea placeholder='请输入商品描述'></textarea>
+                            <view class='sm-content spec'>
+                                <view class="spec-each">
+                                    <view>颜色<text class="iconfont icon-add ml10 f15 bor" data-spec="color_spec" bindtap='spec'></text></view>
+                                    <block  wx:for="{{goods_spec.color_spec}}" wx:key="{{item}}">
+                                        <view class='spec-input'>
+                                            <input class='br5' data-spec='color_spec' data-index='{{index}}' bindinput='specInput' value='{{goods_spec_value.color_spec_value[index] ? goods_spec_value.color_spec_value[index] : ""}}'/>
+                                            <text class="iconfont icon-close" data-index='{{index}}' data-spec='color_spec' bindtap='cancleInput'></text> 
+                                        </view>
+                                    </block>
+                                </view>
+                                 <view class="spec-each">
+                                    <view>尺码<text class="iconfont icon-add ml10 f15 bor" data-spec='size_spec' bindtap='spec'></text> </view>
+                                    <block wx:for="{{goods_spec.size_spec}}" wx:key="{{item}}">
+                                        <view class='spec-input'>
+                                            <input data-spec='size_spec' data-index='{{index}}' bindinput='specInput' value='{{goods_spec_value.size_spec_value[index] ? goods_spec_value.size_spec_value[index] : ""}}'/>
+                                            <text class="iconfont icon-close " data-index='{{index}}' data-spec='size_spec' bindtap='cancleInput'></text> 
+                                        </view>
+                                    </block>
+
+                                </view>
+                                 <view class="spec-each">
+                                    <view>容量<text class="iconfont icon-add ml10 f15 bor" data-spec='capacity_spec' bindtap='spec'></text> </view>
+                                    <block wx:for="{{goods_spec.capacity_spec}}" wx:key="{{item}}">
+                                        <view class='spec-input' >
+                                            <input data-spec='capacity_spec' data-index='{{index}}' bindinput='specInput' value='{{goods_spec_value.capacity_spec_value[index] ? goods_spec_value.capacity_spec_value[index] : ""}}'/>
+                                            <text class="iconfont icon-close " data-index='{{index}}' data-spec='capacity_spec' bindtap='cancleInput'></text> 
+                                        </view>
+                                    </block>
+
+                                </view>
+                                <view class="spec-each">
+                                    <view>类型<text class="iconfont icon-add ml10 f15 bor" data-spec='type_spec' bindtap='spec'></text> </view>
+                                    <block wx:for="{{goods_spec.type_spec}}" wx:key="{{item}}">
+                                        <view class='spec-input'>
+                                            <input data-spec='type_spec' data-index='{{index}}' bindinput='specInput' value='{{goods_spec_value.type_spec_value[index] ? goods_spec_value.type_spec_value[index] : ""}}'/>
+                                            <text class="iconfont icon-close" data-index='{{index}}' data-spec='type_spec' bindtap='cancleInput'></text> 
+                                        </view>
+                                    </block>
+
+                                </view>
+                                <view class="spec-each">
+                                    <view>口味<text class="iconfont icon-add ml10 f15 bor" data-spec='taste_spec' bindtap='spec'></text> </view>
+                                    <block wx:for="{{goods_spec.taste_spec}}" wx:key="{{item}}">
+                                        <view class='spec-input'>
+                                            <input data-spec='taste_spec' data-index='{{index}}' bindinput='specInput' value='{{goods_spec_value.taste_spec_value[index] ? goods_spec_value.taste_spec_value[index] : ""}}'/>
+                                            <text class="iconfont icon-close" data-index='{{index}}' data-spec='taste_spec' bindtap='cancleInput'></text> 
+                                        </view>
+                                    </block>
+                                </view>
                             </view>
                         </view>
+                        <!-- <view class="info-each">
+                            <view class='sm-title'>套餐</view>
+                            <view class='sm-content'>
+                                <textarea name="goodsDetails" placeholder='请输入商品套餐'></textarea>
+                            </view>
+                        </view> -->
                         <view class="info-each">
                             <view class='sm-title'>商品列表图片</view>
                             <view class='sm-content'>
@@ -152,7 +205,7 @@
                                         <view  class="img swiper-img">
                                             <image src="{{aliyunUrl + item}}" />
                                             <view catchtap='cancleImg' data-status='2' data-index = '{{index}}' class='cancle-img'>x</view>
-                                            <view class='sort'><input value='{{index}}' data-sort="{{item}}" bindblur="swiperSort" placeholder='排序'/></view>
+                                            <view class='sort'><input value='{{index}}' data-sort="{{item}}" data-index="{{index}}" bindblur="swiperSort" placeholder='排序'/></view>
                                         </view>
                                     </block>
                                 <!-- </block> -->
@@ -168,7 +221,7 @@
                                         <view class="img detail-img">
                                             <image src="{{aliyunUrl + item}}" />
                                             <view catchtap='cancleImg' data-status='3' data-index = '{{index}}' class='cancle-img'>x</view>
-                                            <view class='sort'><input value='{{index}}' data-sort="{{item}}" bindblur="detailSort" placeholder='排序'/></view>
+                                            <view class='sort'><input value='{{index}}' data-sort="{{item}}" data-index="{{index}}" bindblur="detailSort" placeholder='排序'/></view>
                                         </view>
                                     </block>
                                 <!-- </block> -->

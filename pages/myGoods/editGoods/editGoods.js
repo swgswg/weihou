@@ -7,28 +7,44 @@ Page({
      * 页面的初始数据
      */
     data: {
-        goodsInfo:null,
+        goodsInfo: null,
         category: null,
-        list_img: [],
         list_img_hidden: true,
-        swiper_img: [],
-        swiper_sort:{},
+        swiper_sort: {},
         swiper_img_hidden: true,
-        goodsDetail_img: [],
-        goodsDetail_sort:{},
+        goodsDetail_sort: {},
         goodsDetail_img_hidden: true,
-        aliyunUrl: urlData.uploadFileUrl
+        aliyunUrl: urlData.uploadFileUrl,
+        goods_picture:{
+            list_img:[],
+            swiper_img:[],
+            goodsDetail_img: [],
+        },
+        goods_spec: {
+            color_spec: [],
+            size_spec: [],
+            capacity_spec: [],
+            type_spec: [],
+            taste_spec: [],
+        },
+        goods_spec_value: {
+            color_spec_value: [],
+            size_spec_value: [],
+            capacity_spec_value: [],
+            type_spec_value: [],
+            taste_spec_value: []
+        },
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log(options.goodsId);
+        // console.log(options.goodsId);
         let that = this;
         // 查询分类
         funData.getClass(app.globalData.groupId, that, function (data) {
-            console.log(data);
+            // console.log(data);
             that.setData({
                 category: data
             });
@@ -38,33 +54,47 @@ Page({
             console.log(data);
             let picture = data.picture;
             let len = picture.length;
-            let list_img = [];
-            let swiper_img = [];
+            
             let swiper_sort = that.data.swiper_sort;
-            let goodsDetail_img = [];
             let goodsDetail_sort = that.data.goodsDetail_sort;
             let list_img_hidden = null;
             let swiper_img_hidden = null;
             let goodsDetail_img_hidden = null;
-            
-            for(let i = 0; i < len; i++){
-                if(picture[i].status == 1){
-                    list_img.push(picture[i].img);
-                } else if (picture[i].status == 2){
-                    swiper_img.push(picture[i]);
-                    // swiper_sort[picture[i].img] = picture[i].sort;
-                } else if (picture[i].status == 3){
-                    goodsDetail_img.push(picture[i]);
-                    // goodsDetail_sort[picture[i].img] = picture[i].sort;
+            // 商品规格
+            let goods_spec_value = that.data.goods_spec_value;
+            let goods_spec = that.data.goods_spec;
+            goods_spec.color_spec =  goods_spec_value.color_spec_value = data.color ? data.color.split(',') : [];
+            goods_spec.size_spec = goods_spec_value.size_spec_value = data.size ? data.size.split(',') : [];
+            goods_spec.capacity_spec = goods_spec_value.capacity_spec_value = data.volume ? data.volume.split(',') : [];
+            goods_spec.type_spec = goods_spec_value.type_spec_value = data.type ? data.type.split(',') : [];
+            goods_spec.taste_spec = goods_spec_value.taste_spec_value = data.taste ? data.taste.split(',') : [];
+            // 商品图片
+            let goods_picture = that.data.goods_picture;
+            let list_img = goods_picture.list_img;
+            let swiper_img = goods_picture.swiper_img;
+            let goodsDetail_img = goods_picture.goodsDetail_img;
+            for (let i = 0; i < len; i++) {
+                if (picture[i].status == 1) {
+                    list_img.push({ img: picture[i].img,sort: picture[i].sort, status: picture[i].status});
+                } else if (picture[i].status == 2) {
+                    swiper_img.push({ img: picture[i].img,  sort: picture[i].sort, status: picture[i].status });
+                    swiper_sort[picture[i].img] = picture[i].sort;
+                } else if (picture[i].status == 3) {
+                    goodsDetail_img.push({ img: picture[i].img, sort: picture[i].sort, status: picture[i].status });
+                    goodsDetail_sort[picture[i].img] = picture[i].sort;
                 }
             }
-            if (list_img.length >= 1){
+            goods_picture.list_img = list_img;
+            goods_picture.swiper_img = swiper_img;
+            goods_picture.goodsDetail_img = goodsDetail_img;
+
+            if (list_img.length >= 1) {
                 list_img_hidden = false;
             }
-            if (swiper_img.length >= 3){
-                swiper_img_hidden:false;
+            if (swiper_img.length >= 3) {
+                swiper_img_hidden: false;
             }
-            if (goodsDetail_img.length >= 4){
+            if (goodsDetail_img.length >= 4) {
                 goodsDetail_img_hidden = false;
             }
             // console.log(swiper_img);
@@ -72,12 +102,15 @@ Page({
                 goodsInfo: data,
                 list_img: list_img,
                 swiper_img: swiper_img,
-                // swiper_sort: swiper_sort,
+                swiper_sort: swiper_sort,
                 goodsDetail_img: goodsDetail_img,
-                // goodsDetail_sort: goodsDetail_sort,
+                goodsDetail_sort: goodsDetail_sort,
                 list_img_hidden: list_img_hidden,
                 swiper_img_hidden: swiper_img_hidden,
-                goodsDetail_img_hidden: goodsDetail_img_hidden
+                goodsDetail_img_hidden: goodsDetail_img_hidden,
+                goods_spec_value: goods_spec_value,
+                goods_spec: goods_spec,
+                goods_picture: goods_picture
             });
         })
     },
@@ -93,7 +126,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        
+
     },
 
     /**
@@ -132,19 +165,91 @@ Page({
     },
 
     /**
+     * 添加类型
+     */
+    spec: function (e) {
+        let that = this;
+        // 获取类型
+        let myspec = e.currentTarget.dataset.spec;
+        let goods_spec = that.data.goods_spec;
+        // 动态获取类型变量
+        let data = goods_spec[myspec];
+        // 动态添加类型输入框
+        data.push(data.length);
+        // 重新赋值
+        goods_spec[myspec] = data;
+        that.setData({
+            goods_spec: goods_spec
+        })
+
+    },
+
+    /**
+     * 获取类型值
+     */
+    specInput: function (e) {
+        let that = this;
+        let goods_spec_value = that.data.goods_spec_value;
+        let myspec = e.currentTarget.dataset.spec;
+        let myspec_value = myspec + '_value';
+        let data = goods_spec_value[myspec_value];
+        // 获取点击按钮的下标
+        let index = e.currentTarget.dataset.index;
+        // 获取输入框的值
+        let val = e.detail.value;
+        data.splice(index, 1, val);
+        // 重新赋值
+        goods_spec_value[myspec_value] = data;
+        that.setData({
+            goods_spec_value: goods_spec_value
+        });
+        return val;
+    },
+
+    /**
+     * 删除类型
+     */
+    cancleInput: function (e) {
+        let that = this;
+        let goods_spec = that.data.goods_spec;
+        let goods_spec_value = that.data.goods_spec_value;
+        // console.log(goods_spec);
+        // console.log(goods_spec_value);
+
+        let myspec = e.currentTarget.dataset.spec;
+        let myspec_value = myspec + '_value';
+        let data_spec = goods_spec[myspec];
+        let data_value = goods_spec_value[myspec_value];
+        let index = e.currentTarget.dataset.index;
+
+        // console.log(data_spec)
+        data_spec.splice(index, 1);
+        data_value.splice(index, 1);
+        goods_spec[myspec] = data_spec;
+        goods_spec_value[myspec_value] = data_value;
+        that.setData({
+            goods_spec: goods_spec,
+            goods_spec_value: goods_spec_value
+        });
+    },
+
+    /**
     * 添加商品列表图片
     */
     addlistImg: function () {
         let that = this;
-        let list_img = that.data.list_img;
+        let goods_picture = that.data.goods_picture;
+        let list_img = goods_picture.list_img;
+        // let list_img = [];
         let list_img_hidden = that.data.list_img_hidden;
         funData.myUpload(function (newsrc, fileNmae) {
-            list_img.push(fileNmae);
+            list_img.push({img:fileNmae, sort:0, status:1});
             if (list_img.length >= 1) {
                 list_img_hidden = !list_img_hidden;
             }
+            goods_picture.list_img = list_img;
             that.setData({
-                list_img: list_img,
+                goods_picture: goods_picture,
                 list_img_hidden: list_img_hidden
             });
         });
@@ -155,16 +260,27 @@ Page({
      */
     addswiperImg: function () {
         let that = this;
-        let swiper_img = that.data.swiper_img;
+        let goods_picture = that.data.goods_picture;
+        let swiper_img = goods_picture.swiper_img;
+        let swiper_sort = that.data.swiper_sort;
         let swiper_img_hidden = that.data.swiper_img_hidden;
         funData.myUpload(function (newsrc, fileNmae) {
-            swiper_img.push(fileNmae);
-            if (swiper_img.length >= 3) {
-                swiper_img_hidden = !swiper_img_hidden;
+            swiper_img.push({img:fileNmae, sort:0, status:2});
+            for (let i = 0; i < swiper_img.length; i++) {
+                if (swiper_img[i].img == fileNmae) {
+                    swiper_sort[swiper_img[i].img] = i;
+                    swiper_img[i].sort = i;
+                }
             }
+            goods_picture.swiper_img = swiper_img;
+            // if (swiper_img.length >= 3) {
+            //     swiper_img_hidden = !swiper_img_hidden;
+            // }
             that.setData({
-                swiper_img: swiper_img,
-                swiper_img_hidden: swiper_img_hidden
+                // swiper_img: swiper_img,
+                goods_picture: goods_picture,
+                swiper_sort: swiper_sort,
+                // swiper_img_hidden: swiper_img_hidden
             });
         });
     },
@@ -174,13 +290,23 @@ Page({
      */
     swiperSort: function (e) {
         let that = this;
-        // console.log(e);
+        let goods_picture = that.data.goods_picture;
+        let swiper_img = goods_picture.swiper_img;
         let swiper_sort = that.data.swiper_sort;
+
         let img = e.currentTarget.dataset.sort;
+        let val = e.detail.value;
         swiper_sort[img] = e.detail.value;
+        for (let i = 0; i < swiper_img.length; i++){
+            if (swiper_img[i].img == img){
+                swiper_img[i].sort = val;
+            }
+        }
+        goods_picture.swiper_img = swiper_img;
         // console.log(swiper_sort)
         that.setData({
-            swiper_sort: swiper_sort
+            swiper_sort: swiper_sort,
+            goods_picture: goods_picture
         });
     },
 
@@ -189,16 +315,28 @@ Page({
      */
     addgoodsDetailImg: function () {
         let that = this;
-        let goodsDetail_img = that.data.goodsDetail_img;
+        let goods_picture = that.data.goods_picture;
+        let goodsDetail_img = goods_picture.goodsDetail_img;
+
+        let goodsDetail_sort = that.data.goodsDetail_sort;
         let goodsDetail_img_hidden = that.data.goodsDetail_img_hidden;
         funData.myUpload(function (newsrc, fileNmae) {
-            goodsDetail_img.push(fileNmae);
-            if (goodsDetail_img.length >= 4) {
-                goodsDetail_img_hidden = !goodsDetail_img_hidden;
+            goodsDetail_img.push({img:fileNmae,sort:0,status:3});
+            for (let i = 0; i < goodsDetail_img.length; i++) {
+                if (goodsDetail_img[i].img == fileNmae) {
+                    goodsDetail_sort[goodsDetail_img[i].img] = i;
+                    goodsDetail_img[i].sotr = i;
+                }
             }
+            // if (goodsDetail_img.length >= 4) {
+            //     goodsDetail_img_hidden = !goodsDetail_img_hidden;
+            // }
+            goods_picture.goodsDetail_img = goodsDetail_img;
             that.setData({
-                goodsDetail_img: goodsDetail_img,
-                goodsDetail_img_hidden: goodsDetail_img_hidden
+                // goodsDetail_img: goodsDetail_img,
+                goodsDetail_sort: goodsDetail_sort,
+                goods_picture: goods_picture
+                // goodsDetail_img_hidden: goodsDetail_img_hidden
             });
         });
 
@@ -209,12 +347,24 @@ Page({
      */
     detailSort: function (e) {
         let that = this;
+        let goods_picture = that.data.goods_picture;
+        let goodsDetail_img = goods_picture.goodsDetail_img;
+
         let goodsDetail_sort = that.data.goodsDetail_sort;
         let img = e.currentTarget.dataset.sort;
+        let val = e.detail.value;
+
         // console.log(img)
         goodsDetail_sort[img] = e.detail.value;
         // console.log(goodsDetail_sort);
+        for (let i = 0; i < goodsDetail_img.length; i++) {
+            if (goodsDetail_img[i].img == img) {
+                goodsDetail_img[i].sort = val;
+            }
+        }
+        goods_picture.goodsDetail_img = goodsDetail_img;
         that.setData({
+            goods_picture: goods_picture,
             goodsDetail_sort: goodsDetail_sort
         });
     },
@@ -224,28 +374,31 @@ Page({
      */
     cancleImg: function (e) {
         let that = this;
+        let goods_picture = that.data.goods_picture;
         let status = e.currentTarget.dataset.status;
         let index = e.currentTarget.dataset.index;
-        let data = null;
         if (status == '1') {
-            data = that.data.list_img;
-            data.splice(index, 1);
+            let list_img  = goods_picture.list_img;
+            list_img.splice(index, 1);
+            goods_picture.list_img = list_img;
             that.setData({
-                list_img: data,
+                goods_picture: goods_picture,
                 list_img_hidden: true
             });
         } else if (status == '2') {
-            data = that.data.swiper_img;
-            data.splice(index, 1);
+            let swiper_img = goods_picture.swiper_img;
+            swiper_img.splice(index, 1);
+            goods_picture.swiper_img = swiper_img;
             that.setData({
-                swiper_img: data,
+                goods_picture: goods_picture,
                 swiper_img_hidden: true
             });
         } else if (status == '3') {
-            data = that.data.goodsDetail_img;
-            data.splice(index, 1);
+            let goodsDetail_img = goods_picture.goodsDetail_img;
+            goodsDetail_img.splice(index, 1);
+            goods_picture.goodsDetail_img = goodsDetail_img
             that.setData({
-                goodsDetail_img: data,
+                goods_picture: goods_picture,
                 goodsDetail_img_hidden: true
             });
         }
@@ -257,60 +410,69 @@ Page({
     formSubmit: function (e) {
         // console.log(e.detail.value);
         let that = this;
+        let goods_picture = that.data.goods_picture;
         let goods = e.detail.value;
-        let list_img = that.data.list_img;
-        let swiper_img = that.data.swiper_img;
-        let swiper_sort = that.data.swiper_sort;
-        let goodsDetail_img = that.data.goodsDetail_img;
-        let goodsDetail_sort = that.data.goodsDetail_sort;
+        let list_img = goods_picture.list_img;
+        let swiper_img = goods_picture.swiper_img;
+        // let swiper_sort = that.data.swiper_sort;
+        let goodsDetail_img = goods_picture.goodsDetail_img;
+        // let goodsDetail_sort = that.data.goodsDetail_sort;
         let status = ''; // 存放图片的状态, 列表图1,轮播图2,详情图3
         let img = '';    // 存放图片
         let sort = '';   // 存放图片排序
+        
         // 商品列表图
         let list_img_len = list_img.length;
         for (let i = 0; i < list_img_len; i++) {
-            img += list_img[i] + ',';
-            status += '1,';
-            sort += '0,'
+            img += list_img[i].img + ',';
+            status += list_img[i].status +',';
+            sort += list_img[i].sort + ',';
         }
-        // 商品轮播图
+        // // 商品轮播图
         let swiper_img_len = swiper_img.length;
         for (let i = 0; i < swiper_img_len; i++) {
-            img += swiper_img[i] + ',';
-            status += '2,';
-            if (JSON.stringify(swiper_sort) != "{}") {
-                for (let k in swiper_sort) {
-                    if (k == swiper_img[i]) {
-                        sort += swiper_sort[k] + ',';
-                    }
-                }
-            } else {
-                sort += i + ',';
-                console.log(111)
-            }
+            img += swiper_img[i].img + ',';
+            status += swiper_img[i].status + ',';
+            sort += swiper_img[i].sort + ',';
+            // if (JSON.stringify(swiper_sort) != "{}") {
+            //     for (let k in swiper_sort) {
+            //         if (k == swiper_img[i]) {
+            //             sort += swiper_sort[k] + ',';
+            //         }
+            //     }
+            // } else {
+            //     sort += i + ',';
+            //     console.log(111)
+            // }
         }
-        // 商品详情图
+        // // 商品详情图
         let goodsDetail_img_len = goodsDetail_img.length;
         for (let i = 0; i < goodsDetail_img_len; i++) {
-            img += goodsDetail_img[i] + ',';
-            status += '3,';
-            if (JSON.stringify(goodsDetail_sort) != "{}") {
-                for (let m in goodsDetail_sort) {
-                    if (m == goodsDetail_img[i]) {
-                        sort += goodsDetail_sort[m] + ',';
-                    }
-                }
-            } else {
-                sort += i + ',';
-                console.log(222)
+            img += goodsDetail_img[i].img + ',';
+            status += goodsDetail_img[i].status + ',';
+            sort += goodsDetail_img[i].sort + ',';
+            // if (JSON.stringify(goodsDetail_sort) != "{}") {
+            //     for (let m in goodsDetail_sort) {
+            //         if (m == goodsDetail_img[i]) {
+            //             sort += goodsDetail_sort[m] + ',';
+            //         }
+            //     }
+            // } else {
+            //     sort += i + ',';
+            //     console.log(222)
 
-            }
+            // }
         }
         goods.img = img;
         goods.status = status;
         goods.goodsId = that.data.goodsInfo.goodsId;
         goods.sort = sort;
         // goods.shopCode = app.globalData.shopCode;
+        goods.color = that.data.goods_spec_value.color_spec_value.join(','); // 颜色规格
+        goods.size = that.data.goods_spec_value.size_spec_value.join(','); // 尺码规格
+        goods.type = that.data.goods_spec_value.type_spec_value.join(','); // 类型规格
+        goods.volume = that.data.goods_spec_value.capacity_spec_value.join(','); // 容量规格
+        goods.taste = that.data.goods_spec_value.taste_spec_value.join(','); // 容量规格
         console.log(goods);
         // 修改商品
         funData.updateGoods(goods, that, () => {

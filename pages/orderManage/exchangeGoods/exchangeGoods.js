@@ -20,7 +20,6 @@ Page({
         let that = this;
         funData.getGoodBack(options.order_uuid, that,(data)=>{
             console.log(data);
-            
             that.setData({
                 order_uuid: options.order_uuid,
                 exchage_status: 2
@@ -29,9 +28,9 @@ Page({
             // exchange.createTime = util.formatDate(exchange.createTime, 'YY-MM-DD hh:mm:ss');
             // exchange.replyTime = util.formatDate(exchange.replyTime, 'YY-MM-DD hh:mm:ss');
             // console.log(exchange)
-            // that.setData({
-            //     exchange: exchange
-            // });
+            that.setData({
+                exchange: data
+            });
             
         });
     },

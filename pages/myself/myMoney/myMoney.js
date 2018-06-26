@@ -79,12 +79,22 @@ Page({
 
     // 提现金额
     withdrawPrice:function(e){
+        let that = this;
         let deposit =e.detail.value;
         let price = Number(deposit);
+        console.log()
         // 输入金额校验
         if(!util.checkReg(4, price)){
             wx.showToast({
                 title: '请输入正确金额',
+                icon: 'none',
+                duration: 2000
+            });
+            return;
+        }
+        if (deposit > that.data.shopInfo.pay_account){
+            wx.showToast({
+                title: '提现金额过大',
                 icon: 'none',
                 duration: 2000
             });
@@ -108,9 +118,9 @@ Page({
                 duration: 2000
             });
             return;
-        } else if (deposit > pay_account ){
+        } else if (deposit > pay_account){
             wx.showToast({
-                title: '请输入正确金额',
+                title: '提现金额过大',
                 icon: 'none',
                 duration: 2000
             });

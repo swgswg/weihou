@@ -4,6 +4,7 @@ App({
         userInfo: null,
         shopCode: 111,
         groupId: 1,
+        user_id:1,
         screenWidthScale: 0.0,
         screenHightScale: 0.0,
         screenWidth: 0,

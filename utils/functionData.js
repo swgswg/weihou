@@ -42,7 +42,7 @@ module.exports = {
             method: 'POST',
 			success: function(res) {
 				if (res.data.state == 1) {
-					callback.apply(pageobj, [res.data.data])
+					callback.apply(pageobj, [res.data.data]);
 				} else {
 					wx.showModal({
 						title: '提示',
@@ -111,7 +111,7 @@ module.exports = {
                     uploadAliyun(filePath, function (fileNmae) {
                         let newsrc = env.aliyunServerURL + fileNmae;
                         // console.log(env.aliyunServerURL);
-                        console.log(newsrc);
+                        // console.log(newsrc);
                         // that.setData({
                         //     profile: newsrc
                         // });
@@ -517,6 +517,21 @@ module.exports = {
         this.requestUrl(data, urlData.updateBackStatus, pageobj, callback);   
     },
 
+    // 商店注册
+    insertShop: function (data, pageobj, callback){
+        // let data = {
+        //     owner: myowner,
+        //     shop_name:myshop_name,
+        //     shop_detail:myshop_detail,
+        //     user_id: myuser_id
+        // }
+        this.requestUrl(data, urlData.insertShopUrl, pageobj, callback);   
+    },
+
+    // 获取分组
+    getGroup: function (pageobj, callback){
+        this.requestUrl({},urlData.getGroupUrl, pageobj, callback);   
+    },
 
 }   
 

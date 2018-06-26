@@ -1,7 +1,0 @@
-/* pages/icon/iconList/iconList.wxss */
-.iconfont{
-    font-size:50rpx;
-}
-.ac{
-    color:red;
-}

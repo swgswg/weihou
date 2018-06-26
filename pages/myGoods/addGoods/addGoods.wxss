@@ -33,6 +33,7 @@
     box-sizing: border-box;
     font-size: 26rpx;
     color: #333;
+
     /* border: 1px solid red;  */
 }
 
@@ -40,7 +41,11 @@
     width: 700rpx;
     height: 70rpx;
 }
-
+.sm-content textarea{
+    width: 700rpx;
+    height: 150rpx;
+    padding-top:10rpx; 
+}
 .sm-content2 {
     width: 100%;
     font-size: 24rpx;
@@ -84,6 +89,7 @@
 }
 
 /*取消图片  */
+
 .cancle-img {
     position: absolute;
     top: 0;
@@ -100,19 +106,22 @@
 }
 
 /*图片排序 */
-.sm-content .sort input{
+
+.sm-content .sort input {
     position: absolute;
     bottom: 0rpx;
     left: 0;
     width: 100%;
     height: 40rpx;
+    font-size:40rpx;
     text-align: center;
-    color: red;
-    background-color: #fff;
+    color: #fff;
+    background-color: #000;
     opacity: 0.5;
 }
 
 /*轮播图  */
+
 .swiper-img image {
     position: absolute;
     top: 0;
@@ -122,9 +131,11 @@
 }
 
 /*详情图  */
-.detail-img{
+
+.detail-img {
     height: 300rpx;
 }
+
 .detail-img image {
     position: absolute;
     top: 0;
@@ -143,5 +154,38 @@
 }
 
 input, textarea {
+    padding: 0 20rpx;
+    box-sizing: border-box;
     border: 1rpx solid #aaa;
+}
+
+.spec {
+    display: flex;
+    flex-direction: column;
+}
+
+.spec-input {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 10rpx 0;
+    box-sizing: border-box;
+    /* border: 1rpx solid red; */
+}
+
+.spec-input input {
+    width: 600rpx;
+    height: 70rpx;
+    border: 2rpx solid #ccc;
+    border-right: 0rpx; 
+}
+.icon-close{
+    width:70rpx;
+    height:70rpx;
+    text-align: center;
+    line-height: 70rpx;
+    font-size: 40rpx;
+    border: 2rpx solid #ccc;
 }

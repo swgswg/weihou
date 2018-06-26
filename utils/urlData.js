@@ -62,4 +62,8 @@ module.exports = {
     withdrawUrl: baseUrl + 'MicroPlatform/shop/withdraw',
     // 修改退换货状态
     updateBackStatus: baseUrl + 'MicroPlatform/goodsBack/updateBackStatus',
+    // 商店注册
+    insertShopUrl: baseUrl + 'MicroPlatform/shop/insertShop',
+    // 获取分组
+    getGroupUrl: baseUrl + 'MicroPlatform/group/getGroup',
 }
