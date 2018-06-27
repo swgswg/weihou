@@ -20,7 +20,7 @@ Page({
         deviceW: 0,
         deviceH: 0,
         currtab: 0,
-        start:'2018-7-15'
+        start:'2018-6-01'
     },
 
     /**
@@ -37,7 +37,7 @@ Page({
         // let start = year+'-01-01';
         // console.log(start);
         // 结束时间
-        // let end = util.formatDate(new Date().getTime(),'YY-MM-DD');
+        let end = util.formatDate(new Date().getTime(),'YY-MM-DD');
         // console.log(end)
         // 当月天数 数组
         let day = date.getDate();
@@ -45,7 +45,7 @@ Page({
         // console.log(dayRange);
         this.setData({
             // start:start,
-            // end: end,
+            end: end,
             year: year,
             month:year+'-'+month,
         });

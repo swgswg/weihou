@@ -60,10 +60,12 @@ module.exports = {
     getUserByCodeUrl: baseUrl +'MicroPlatform/shop/getUserByCode',
     // 商家提现
     withdrawUrl: baseUrl + 'MicroPlatform/shop/withdraw',
+    //  查询提现记录
+    getWithdrawalUrl: baseUrl + 'MicroPlatform/shop/getWithdrawal',
     // 修改退换货状态
-    updateBackStatus: baseUrl + 'MicroPlatform/goodsBack/updateBackStatus',
-    // 商店注册
-    insertShopUrl: baseUrl + 'MicroPlatform/shop/insertShop',
+    updateBackStatusUrl: baseUrl + 'MicroPlatform/goodsBack/updateBackStatus',
     // 获取分组
     getGroupUrl: baseUrl + 'MicroPlatform/group/getGroup',
+    // 商店注册
+    insertShopUrl: baseUrl + ' MicroPlatform/shop/insertShop',
 }

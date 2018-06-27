@@ -1,15 +1,15 @@
 <form bindsubmit="apply">
     <view class='shop-each'>
         <view class='each-name'>店铺名称</view>
-        <input name="shop_name" class='each-input' placeholder='请填写您的店铺名称'></input>
+        <input value='{{shopInfo.ShopName}}' class='each-input' placeholder='请填写您的店铺名称'></input>
     </view>
 
     <view class='shop-each'>
         <view class='each-name'>店铺分类</view>
         <view class='each-radio'>
-            <radio-group name="group" class="radio-group" bindchange="radioChange">
+            <radio-group name="group_id" class="radio-group" bindchange="radioChange">
                 <label class="radio" wx:for="{{group}}" wx:for-item="group" wx:key="{{group.groupId}}">
-                    <radio value="{{item.groupId}}" checked="{{item.checked}}" />{{group.groupName}}
+                    <radio value="{{group.groupId}}" />{{group.groupName}}
                 </label>
             </radio-group>
         </view>
@@ -17,7 +17,7 @@
 
     <view class='shop-each'>
         <view class='each-name'>店铺标签</view>
-        <textarea name="shop_tip" class='each-textarea' placeholder='用于买家搜索,请简洁突出展示本店铺'></textarea>
+        <textarea name="shop_tip" class='each-textarea' placeholder='用于买家搜索,请简洁突出展示本店铺特色'></textarea>
     </view>
 
     <view class='shop-each'>
@@ -25,13 +25,13 @@
         <textarea name="shop_detail" class='each-textarea' placeholder='请输入您的店铺简介'></textarea>
     </view>
 
-    <view class='shop-each'>
+    <!-- <view class='shop-each'>
         <view class='each-name'>运营人姓名</view>
         <input name="owner" class='each-input' placeholder='请填写店铺运营人姓名'></input>
-    </view>
+    </view> -->
     <view class='shop-each'>
         <view class='each-name'>身份证号</view>
-        <input name="IDcard" class='each-input' placeholder='请填写运营人身份证号'></input>
+        <input name="ID_card" class='each-input' placeholder='请填写运营人身份证号'></input>
     </view>
 
     <view class='shop-each'>
@@ -39,6 +39,6 @@
         <image bindtap='addImg' class='each-img' src="{{ID_img ? aliyunUrl+ID_img : '/images/IDzheng.png'}}"></image>
     </view>
     <view class='shop-each'>
-       <button type="primary" formType="submit">提交</button>
+        <button type="primary" formType="submit">提交</button>
     </view>
 </form>

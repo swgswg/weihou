@@ -153,6 +153,37 @@ function getPrevPageUrl() {
     return url;
 }
 
+/**
+ * 冒泡排序
+ */
+function mySort(arr,flag) {
+    if (arr.length == 1) {
+        return arr;
+    }
+    let len = arr.length;
+    for (var i = 0; i < len - 1; i++) {
+        for (var j = i + 1; j < arr.length; j++) {
+            // 1从小到大排序
+            if (flag == 1){
+                if (arr[i] > arr[j]) {
+                    let temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            } else {
+                // 从大到小排序
+                if (arr[i] < arr[j]) {
+                    let temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+    }
+    return arr;
+}
+
+
 module.exports = {
     formatTime: formatTime,
     formatDate: formatDate,
@@ -164,5 +195,6 @@ module.exports = {
     getCurrentPageUrl: getCurrentPageUrl,
     getCurrentPageUrlWithArgs: getCurrentPageUrlWithArgs,
     getPrevPageUrl: getPrevPageUrl,
+    mySort: mySort,
 
 }

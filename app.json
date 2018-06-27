@@ -1,9 +1,12 @@
 {
     "pages":[
+        
         "pages/myself/myself",
+        "pages/apply/apply",
+       
         "pages/apply/auditing/auditing",
         "pages/myGoods/goodsList/goodsList",
-        "pages/apply/apply",
+        "pages/apply/openShop/openShop",
         
         "pages/moneyManage/moneyManage",
         "pages/moneyManage/moneyDetail/moneyDetail",

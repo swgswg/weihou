@@ -48,17 +48,29 @@ page{
     box-sizing: border-box;
 }
 .info-img{
-    width: 150rpx;
-    height: 150rpx;
+    width: 180rpx;
+    height: 180rpx;
 }
 .info-text{
     margin-left:20rpx;
     font-size: 25rpx; 
 }
 .test2{
-    padding: 20rpx;
+     padding-left: 20rpx; 
     box-sizing: border-box;
     font-size: 25rpx;
-    color: #aaa;
-    border-bottom:1rpx solid #ccc;
+    color: #999;
+    /* border-bottom:1rpx solid #ccc; */
+}
+.returninfo{
+    margin-top:0; 
+}
+.guige{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+.yesno{
+    display: flex;
+    justify-content: space-around;
 }

@@ -408,6 +408,20 @@ module.exports = {
         this.requestUrl(data, urlData.updateInfoUrl, pageobj, callback);
     },
 
+    // 完善商家信息
+    updateShopInfo: function (data, pageobj, callback){
+        // let data = {
+        //     shop_code: shopCode,
+        //     shop_detail: myshop_detail,
+        //     ID_card: myID_card,
+        //     shop_tip: myshop_tip,
+        //     ID_img: myID_img,
+        //     group_id: mygroup_id,
+        //     level: 3
+        // }
+        this.requestUrl(data, urlData.updateInfoUrl, pageobj, callback);
+    },
+
     // 查询商家信息
     getShop: function (shopCode, pageobj, callback){
         let data = {
@@ -509,12 +523,23 @@ module.exports = {
         this.requestUrl(data, urlData.withdrawUrl, pageobj, callback);   
     },
 
+    // 查询提现记录
+    getWithdrawal: function (shopCode, mystatus, mypage, mypageSize, pageobj, callback){
+        let data = {
+            shop_code: shopCode,
+            status: mystatus,
+            page: mypage,
+            pageSize: mypageSize
+        }
+        this.requestUrl(data, urlData.getWithdrawalUrl, pageobj, callback);   
+    },
+
     // 修改退换货状态
     updateBackStatus: function (myorder_uuid, pageobj, callback){
         let data = {
             order_uuid: myorder_uuid
         }
-        this.requestUrl(data, urlData.updateBackStatus, pageobj, callback);   
+        this.requestUrl(data, urlData.updateBackStatusUrl, pageobj, callback);   
     },
 
     // 商店注册

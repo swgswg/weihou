@@ -70,12 +70,12 @@ Page({
     },
 
     // 持卡人姓名
-    ownerInput:function(e){
-        let owner = e.detail.value;
-        this.setData({
-            owner: owner
-        });
-    },
+    // ownerInput:function(e){
+    //     let owner = e.detail.value;
+    //     this.setData({
+    //         owner: owner
+    //     });
+    // },
 
     // 提现金额
     withdrawPrice:function(e){
@@ -88,15 +88,15 @@ Page({
             wx.showToast({
                 title: '请输入正确金额',
                 icon: 'none',
-                duration: 2000
+                duration: 1000
             });
             return;
         }
         if (deposit > that.data.shopInfo.pay_account){
             wx.showToast({
-                title: '提现金额过大',
+                title: '超过可提现金额',
                 icon: 'none',
-                duration: 2000
+                duration: 1000
             });
             return;
         }
@@ -150,5 +150,14 @@ Page({
                 duration: 2000
             });
         });
+    },
+
+    /**
+     * 查看明细
+     */
+    showDetail:function(){
+        wx.navigateTo({
+            url: '/pages/myself/myMoney/moneyDeatail/moneyDeatail',
+        })
     },
 })

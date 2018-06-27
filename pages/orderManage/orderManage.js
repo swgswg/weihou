@@ -26,6 +26,8 @@ Page({
         navTab: ["全部", "待付款", "待发货", "待收货", "客户处理"],
         currentNavtab: 0,
         oederSearchInput:null, // 搜索订单号
+        scrollTop: 0,
+        floorstatus: false,
     },
 
     catchtouchstart: function (e) {
@@ -62,7 +64,8 @@ Page({
         let that = this;
         // console.log(e.currentTarget.dataset.idx);
         this.setData({
-            currentNavtab: e.currentTarget.dataset.idx
+            currentNavtab: e.currentTarget.dataset.idx,
+            floorstatus:false
         });
         that.statusOrder(e.currentTarget.dataset.idx,that);
     },
@@ -184,6 +187,17 @@ Page({
         // console.log(pageSize);
         // console.log(mystatus)
         that.getOrder(mystatus, that, page, pageSize);
+        that.setData({
+            floorstatus: true
+        })
     },
 
+    /**
+     * 返回顶部
+     */
+    goTop: function (e) {
+        this.setData({
+            scrollTop: 0
+        })
+    },  
 })

@@ -101,12 +101,9 @@ Page({
         var that = this
         // 查询商家信息
         funData.getShopByCode(app.globalData.shopCode, that, (data)=>{
-            // console.log(data);
+            console.log(data);
             let card = data.card;
-            // let card = String(shopInfo.card_no);
-            // let len = card.length;
-            // shopInfo.card_no = '*'.repeat(len - 4) + card.slice(len - 4);
-            // console.log(card.card_no);
+            // 银行卡号用*替换
             card.card_no = util.bankCardByStar(card.card_no);
             // console.log(shopInfo);
             that.setData({
@@ -117,7 +114,7 @@ Page({
         });
        
     },
-
+    
     /**
      * 修改商家logo
      */
@@ -164,4 +161,13 @@ Page({
             url: '/pages/myself/userCollection/userCollection',
         })
     },
+
+    /**
+     * 完善店铺信息
+     */
+    perfectInformation:function(){
+        wx.navigateTo({
+            url: '/pages/apply/apply',
+        })
+    }
 })

@@ -2,13 +2,16 @@ const app = getApp();
 const util = require('../../../utils/util.js');
 const urlData = require('../../../utils/urlData.js');
 const funData = require('../../../utils/functionData.js');
+const calculate = require('../../../utils/calculate.js');
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        returnGoods:null
+        returnGoods:null,
+        aliyunUrl: urlData.uploadFileUrl,
+        back_status:null,
     },
 
     /**
@@ -16,14 +19,21 @@ Page({
      */
     onLoad: function (options) {
         let that = this;
-        funData.getGoodBack(options.order_uuid, this, (data) => {
-            // console.log(data);
-            let returnGoods = Object.assign(data[0], data[1]);
-            returnGoods.createTime = util.formatDate(returnGoods.createTime, 'YY-MM-DD hh:mm:ss');
-            returnGoods.replyTime = util.formatDate(returnGoods.replyTime, 'YY-MM-DD hh:mm:ss');
-            console.log(returnGoods)
+        console.log(options.order_uuid);
+        funData.getGoodBack(options.order_uuid, that, (data) => {
+            console.log(data);
+            let returnGoods = data;
+            let goods = returnGoods.goods;
+            let len = goods.length;
+            let  allPrice = 0;
+            for(let i = 0; i < len; i++){
+                goods[i].goodsTotalPrice = calculate.calcMul(goods[i].goods_price,goods[i].num);
+                allPrice = calculate.calcAdd(allPrice, goods[i].goodsTotalPrice);
+            }
+            returnGoods.allPrice = allPrice;
             that.setData({
-                returnGoods: returnGoods
+                returnGoods: returnGoods,
+                back_status: data.goods[0].back_status
             });
         });
     },
@@ -75,5 +85,40 @@ Page({
      */
     onShareAppMessage: function () {
 
+    },
+
+    /**
+     * 同意退货
+     */
+    agreeReturn:function(){
+        let that = this;
+        wx.showModal({
+            title: '同意退货',
+            content: '确定同意退货',
+            success: function (res) {
+                if (res.confirm) {
+                    funData.updateBackStatus(that.data.returnGoods, that, () => {
+                        wx.showToast({
+                            title: '同意退货',
+                            icon: 'success',
+                            duration: 1000
+                        });
+                        that.setData({
+                            back_status:3
+                        });
+                    });
+                } else if (res.cancel) {
+                    
+                }
+            }
+        })
+        
+    },
+
+    /**
+     * 不同意退货
+     */
+    refuseReturn:function(){
+        
     }
 })

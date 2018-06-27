@@ -27,7 +27,7 @@
     <!-- <view class="tab_con flexItem rowStyle {{currentNavtab==0 ? 'list_active0' : ''}} {{currentNavtab==1 ? 'list_active1' : ''}} {{currentNavtab==2 ? 'list_active2' : ''}} {{currentNavtab==3 ? 'list_active3' : ''}} {{currentNavtab==4 ? 'list_active4' : ''}}"> -->
     <view class="tab_con flexItem rowStyle">
         <view class="view1 width20" >
-            <scroll-view class="tableView" scroll-y wx:if="{{hasData}}" bindscrolltolower="scrollToLower">
+            <scroll-view class="tableView" scroll-y wx:if="{{hasData}}" bindscrolltolower="scrollToLower" scroll-top="{{scrollTop}}" scroll-with-animation="true">
                 <block wx:for="{{ order }}" wx:for-item="order" wx:key="{{index}}">
                     <view class="flexItem rowStyle tableViewCellHeader marginTop10" 
                         data-order_uuid='{{order.order_uuid}}' 
@@ -107,5 +107,9 @@
                 </block>
             </scroll-view>
         </view>
+    </view>
+     <!--back top-->
+    <view class="backtop" bindtap="goTop" wx:if="{{floorstatus}}">
+        <text class="iconfont icon-fold"></text>
     </view>
 </block>

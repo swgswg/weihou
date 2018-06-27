@@ -18,7 +18,8 @@ Page({
         payType: '微信钱包',
         hasData: false,
         moneyInfo: [, , , , , , ,],
-
+        scrollTop: 0,
+        floorstatus: false,
     },
 
    
@@ -42,6 +43,14 @@ Page({
         that.getOneOrderMoney(page, pageSize,that);
     },
 
+    /**
+     * 返回顶部
+     */
+    goTop: function (e) {
+        this.setData({
+            scrollTop: 0,
+        })
+    },
     //滚动事件
     // upper: function () {
     //     var self = this
@@ -70,7 +79,9 @@ Page({
         console.log(pageSize)
         // 查询每笔订单的金额
         that.getOneOrderMoney(page, pageSize, that);
-
+        that.setData({
+            floorstatus:true
+        });
     },
 
     /**
@@ -94,7 +105,7 @@ Page({
                 moneyInfo[i].createTime = util.formatDate(moneyInfo[i].createTime, 'YY-MM-DD hh:mm:ss');
             }
             that.setData({
-                moneyInfo: moneyInfo
+                moneyInfo: moneyInfo,
             });
         });
     },
