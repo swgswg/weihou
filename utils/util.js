@@ -7,7 +7,6 @@ function formatTime(date) {
     var minute = date.getMinutes()
     var second = date.getSeconds()
 
-
     return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
@@ -101,14 +100,6 @@ function checkReg(flag, data) {
     return reg.test(data);
 }
 
-/**
- * 验证身份证号正则
- */
-// function checkID(data){
-
-
-//     return reg.test(data);
-// }
 
 /**
  * 处理银行卡号显示*
@@ -119,7 +110,10 @@ function bankCardByStar(data) {
     return ('*'.repeat(len - 4) + newdata.slice(len - 4));
 }
 
-/*获取当前页url*/
+/**
+ * 获取当前页url
+ * @returns {*}
+ */
 function getCurrentPageUrl() {
     var pages = getCurrentPages() //获取加载的页面
     var currentPage = pages[pages.length - 1] //获取当前页面的对象
@@ -127,7 +121,10 @@ function getCurrentPageUrl() {
     return url
 }
 
-/*获取当前页带参数的url*/
+/**
+ * 获取当前页带参数的url
+ * @returns {string}
+ */
 function getCurrentPageUrlWithArgs() {
     var pages = getCurrentPages() //获取加载的页面
     var currentPage = pages[pages.length - 1] //获取当前页面的对象
@@ -145,7 +142,11 @@ function getCurrentPageUrlWithArgs() {
     return urlWithArgs
 }
 
-/*获取上一页url*/
+
+/**
+ * 获取上一页url
+ * @returns {*}
+ */
 function getPrevPageUrl() {
     let pages = getCurrentPages(); //获取加载的页面
     let prevPage = pages[pages.length - 2]; //获取上一级页面的对象
@@ -183,6 +184,78 @@ function mySort(arr,flag) {
     return arr;
 }
 
+/**
+ * 倒计时
+ * @param endTime
+ */
+function mytimer(endTime,that){
+    var EndTime = new Date(endTime);
+    var clear_set = null;
+    console.log(EndTime);
+    clear_set = setInterval(function(){
+        let NowTime = new Date();
+        let t =EndTime.getTime() - NowTime.getTime();
+        let d=0;
+        let h=0;
+        let m=0;
+        let s=0;
+        if(t>=0){
+            d=Math.floor(t/1000/60/60/24);
+            if(d < 10){
+                d = '0' + d;
+            }
+            h=Math.floor(t/1000/60/60%24);
+            if(h < 10){
+                h = '0' + h;
+            }
+            m=Math.floor(t/1000/60%60);
+            if(m < 10){
+                m = '0' + m;
+            }
+            s=Math.floor(t/1000%60);
+            if(s < 10){
+                s = '0' + s;
+            }
+            that.setData({
+                timer:d+'天'+h+'时'+m+'分'+s+'秒'
+            });
+        }else{
+            that.setData({
+                timer: '已结束'
+            });
+            clearInterval(clear_set);
+        }
+    },1000);
+}
+
+/**
+ *  微信 wx.showToast提示框二次封装
+ * @param title
+ * @param type
+ */
+function showToast(title, mytype) {
+    let image = '';
+    switch (mytype) {
+        case 'error':
+            image = '/images/icon_error.png'
+            break;
+        case 'success':
+            image = '/images/icon_success.png'
+            break;
+        case 'warning':
+            image = '/images/icon_warning.png'
+            break;
+    }
+    wx.showToast({
+        title: title,
+        image: image,
+        duration: 0,
+        mask: true,
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
+    })
+}
 
 module.exports = {
     formatTime: formatTime,
@@ -196,5 +269,7 @@ module.exports = {
     getCurrentPageUrlWithArgs: getCurrentPageUrlWithArgs,
     getPrevPageUrl: getPrevPageUrl,
     mySort: mySort,
+    mytimer:mytimer,
+    showToast:showToast,
 
 }

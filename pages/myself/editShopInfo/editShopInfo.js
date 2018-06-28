@@ -1,6 +1,6 @@
 var app = getApp();
 const urlData = require('../../../utils/urlData.js');
-const funData = require('../../../utils/functionData.js');
+const funData = require('../../../utils/functionMethodData.js');
 const util = require('../../../utils/util.js'); 
 Page({
 

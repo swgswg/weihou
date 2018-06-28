@@ -226,6 +226,7 @@ module.exports = {
     getGoodsDetails: function (goodsid,pageobj, callback){
         this.requestUrl({ goodsId: goodsid }, urlData.getGoodsDetailsUrl, pageobj, callback);
     },
+
     // 上架/下架商品 0审核,1上架,2下架,3强制下架,4删除  // 修改商品   // 删除商品
     deleteGoods: function (goodsid, isuse, pageobj, callback){
         let data = {
@@ -254,6 +255,7 @@ module.exports = {
     getGroup: function (pageobj, callback){
         this.requestUrl({}, urlData.getGroupUrl, pageobj, callback);
     },
+
     // 查询分类
     getClass: function (groupid,pageobj, callback) {
         let data = {
@@ -261,6 +263,7 @@ module.exports = {
         }
         this.requestUrl(data, urlData.getClassUrl, pageobj, callback);
     },
+
     // 查询商品对应的评论
     getComment: function (goodsid, pageobj, callback){
         let data = {
@@ -556,6 +559,11 @@ module.exports = {
     // 获取分组
     getGroup: function (pageobj, callback){
         this.requestUrl({},urlData.getGroupUrl, pageobj, callback);   
+    },
+
+    // 发送验证码
+    getSms: function (mymobile, pageobj, callback){
+        this.requestUrl({ mobile: mymobile }, urlData.getSmsUrl, pageobj, callback);   
     },
 
 }   

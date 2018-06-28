@@ -1,7 +1,7 @@
 const app = getApp();
 const util = require('../../../utils/util.js');
 const urlData = require('../../../utils/urlData.js');
-const funData = require('../../../utils/functionData.js');
+const funData = require('../../../utils/functionMethodData.js');
 const calculate = require('../../../utils/calculate.js');
 Page({
 

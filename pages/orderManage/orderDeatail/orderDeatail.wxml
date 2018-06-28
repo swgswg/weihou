@@ -72,7 +72,11 @@
                         <view catchtap='returnGoods' data-order_mainid='{{order.order_mainid}}' class='button button button-primary button-rounded button-wx-small ml10'>退货详情</view>
                     </block>
                 </view>
+                <block wx:if="{{order.status == 1}}">
+                    <view class='timer'>未付款时间还剩余：<text style='color:red'>{{timer}}</text></view>
+                </block>
             <!-- </block> -->
         </scroll-view>
+        
     </view>
 </view>

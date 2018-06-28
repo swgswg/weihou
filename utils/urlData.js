@@ -68,4 +68,6 @@ module.exports = {
     getGroupUrl: baseUrl + 'MicroPlatform/group/getGroup',
     // 商店注册
     insertShopUrl: baseUrl + ' MicroPlatform/shop/insertShop',
+    // 发送验证码
+    getSmsUrl: baseUrl + 'MicroPlatform/user/getSms',
 }

@@ -1,13 +1,9 @@
 {
     "pages":[
-        
         "pages/myself/myself",
         "pages/apply/apply",
-       
         "pages/apply/auditing/auditing",
         "pages/myGoods/goodsList/goodsList",
-        "pages/apply/openShop/openShop",
-        
         "pages/moneyManage/moneyManage",
         "pages/moneyManage/moneyDetail/moneyDetail",
         "pages/bankCard/bankCardList/bankCardList",
@@ -15,7 +11,6 @@
         "pages/orderManage/orderManage",
         "pages/orderManage/returnGoods/returnGoods",
         "pages/orderManage/exchangeGoods/exchangeGoods",
-       
         "pages/myGoods/goodsDetail/goodsDetail",
         "pages/myGoods/addGoods/addGoods",
         "pages/myGoods/editGoods/editGoods",
@@ -31,7 +26,6 @@
         "pages/myself/feedBack/feedBack",
         "pages/login/login",
         "pages/logs/logs"
-      
     ],
     "window":{
         "backgroundTextStyle":"light",
@@ -45,30 +39,30 @@
         "backgroundColor": "",
         "borderStyle": "white",
         "list": [
-        {
-            "pagePath": "pages/myGoods/goodsList/goodsList",
-            "text": "我的商品",
-            "iconPath": "images/sellgoods.png",
-            "selectedIconPath": "images/sellgoods_r.png"
-        },
-        {
-            "pagePath": "pages/orderManage/orderManage",
-            "text": "订单管理",
-            "iconPath": "images/order.png",
-            "selectedIconPath": "images/order_r.png"
-        },
-        {
-            "pagePath": "pages/moneyManage/moneyManage",
-            "text": "财务管理",
-            "iconPath": "images/money.png",
-            "selectedIconPath": "images/money_r.png"
-        },
-        {
-            "pagePath": "pages/myself/myself",
-            "text": "我的商户",
-            "iconPath": "images/people.png",
-            "selectedIconPath": "images/people_r.png"
-        }
+            {
+                "pagePath": "pages/myGoods/goodsList/goodsList",
+                "text": "我的商品",
+                "iconPath": "images/sellgoods.png",
+                "selectedIconPath": "images/sellgoods_r.png"
+            },
+            {
+                "pagePath": "pages/orderManage/orderManage",
+                "text": "订单管理",
+                "iconPath": "images/order.png",
+                "selectedIconPath": "images/order_r.png"
+            },
+            {
+                "pagePath": "pages/moneyManage/moneyManage",
+                "text": "财务管理",
+                "iconPath": "images/money.png",
+                "selectedIconPath": "images/money_r.png"
+            },
+            {
+                "pagePath": "pages/myself/myself",
+                "text": "我的商户",
+                "iconPath": "images/people.png",
+                "selectedIconPath": "images/people_r.png"
+            }
         ]
     },
     "networkTimeout": {

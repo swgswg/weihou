@@ -1,6 +1,6 @@
 const app = getApp();
 const urlData = require('../../../utils/urlData.js');
-const funData = require('../../../utils/functionData.js');
+const funData = require('../../../utils/functionMethodData.js');
 let page = 1;
 let pageSize = 20;
 // 0未上架(审核中) 1上架 2拒绝上架(审核未通过) 3禁用(强制下架) 4下架 5删除
@@ -34,7 +34,8 @@ Page({
         is_loadmore: true,
         scrollTop: 0,
         floorstatus: false,
-        aliyunUrl: urlData.uploadFileUrl
+        aliyunUrl: urlData.uploadFileUrl,
+        shopCode:app.globalData.shopCode,
     },
     /**
      * 返回顶部
@@ -82,54 +83,36 @@ Page({
         });
     },
     onShow: function () {
-        this.onLoad();
+        // this.onLoad();
     },
 
-    /**
-     * 继续加载数据
-     */
-    // onReachBottom: function (e) {
-    //     let that = this;
-    //     wx.showNavigationBarLoading();
-    //     if (that.data.is_loadmore == false) {
-    //         wx.hideNavigationBarLoading();
-    //         return false;
-    //     }
-    //     pageSize += 20;
-    //     // var this_cate_id = that.data.this_cate_id;
-    //     let searchData = {
-    //         shopCode: app.globalData.shopCode,
-    //         pageSize : pageSize,
-    //         page : page,
-    //         isUse : that.data.isUse,
-    //     };
-        
-    //     switch (that.data.select_type){
-    //         case 'quanbu': 
-    //             searchData.isUse = -1;
-    //         case 'shangjia':
-    //             searchData.isUse = 1;
-    //             break;
-    //         case 'xiajia':
-    //             searchData.isUse = 2;
-    //             break;
-    //         case 'qiangzhixiajia':
-    //             searchData.isUse = 3;
-    //             break;
-    //         case 'shenhe':
-    //             searchData.isUse = 4;
-    //             break;
-    //         case 'xiaoliang':
-    //             searchData.salesNum = that.data.sheng_jiang;
-    //             break;
-    //         case 'haoping':
-    //             searchData.commentNum = that.data.sheng_jiang;
-    //         break;
-           
-    //     }
-    //     that.selectFun(searchData);
 
-    // },
+    /**
+   * 页面下拉刷新
+   */
+    onPullDownRefresh: function () {
+        let that = this;
+        //在标题栏中显示加载
+        wx.showNavigationBarLoading();
+        wx.startPullDownRefresh();
+           
+        let data = ({
+            isUse: that.data.isUse,
+            shopCode: that.data.shopCode,
+            page: page,
+            pageSize: 20,
+        });
+        that.selectFun(data);
+     
+        // wx.hideNavigationBarLoading() //完成停止加载
+        // wx.stopPullDownRefresh() //停止下拉刷新
+        //模拟加载
+        setTimeout(function () {
+            // complete
+            wx.hideNavigationBarLoading() //完成停止加载
+            wx.stopPullDownRefresh() //停止下拉刷新
+        }, 1500);
+    },
 
     /**
      * 条件查询
@@ -137,6 +120,7 @@ Page({
     select_goods_list: function (e) {
         let that = this;
         let s_type = e.currentTarget.dataset.stype;
+
         that.setData({ sheng_jiang: '' });
         let data = {
             shopCode: app.globalData.shopCode,
@@ -244,10 +228,24 @@ Page({
         // 条件查询商品列表
         funData.requestUrl(mydata, urlData.getGoodsUrl, that, (data) => {
             // console.log(data);
+            let goods_info = data.PageInfo.list;
+            let len = goods_info.length;
+            let perfectRate = '';
+            for (let i = 0; i < len; i++) {
+                if (~~goods_info[i].comment_num == 0) {
+                    perfectRate = '0%';
+                } else {
+                    perfectRate = (~~goods_info[i].perfect / ~~goods_info[i].comment_num) * 100 + '%';
+                    if (!perfectRate) {
+                        perfectRate = '0%';
+                    }
+                }
+                goods_info[i].perfectRate = perfectRate;
+            }
             that.setData({
-                goods_data: data.PageInfo.list,
+                goods_data: goods_info,
                 glo_is_load: false,
-                // floorstatus:true
+                floorstatus:true
             });
         });
     },
@@ -380,7 +378,7 @@ Page({
             wx.showToast({
                 title: '提交审核成功',
                 icon: 'success',
-                duration: 2000,
+                duration: 1000,
                 success: function () {
                     let index = e.currentTarget.dataset.index;
                     that.changeGoods_data(index, that);
@@ -414,9 +412,19 @@ Page({
             page: page,
             isUse: that.data.isUse,
         };
-        that.selectFun(searchData);
+        that.selectFun(searchData)
         that.setData({
             floorstatus: true
+        });
+        
+    },
+
+    /**
+     * 滚动到顶部/左边，会触发 scrolltoupper 事件
+     */
+    scrollToUpper:function(){
+        this.setData({
+            floorstatus:false
         });
     },
 })

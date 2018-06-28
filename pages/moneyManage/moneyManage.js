@@ -1,7 +1,7 @@
 //获取应用实例
 const app = getApp();
 const urlData = require('../../utils/urlData.js');
-const funData = require('../../utils/functionData.js');
+const funData = require('../../utils/functionMethodData.js');
 const util = require('../../utils/util.js');
 let page = 1;
 let pageSize = 20;

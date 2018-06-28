@@ -1,75 +1,71 @@
 //初始化数据
 function tabbarinit(flag) {
     // vipLevel 1用户  2经销商
-    if(flag == 1){
+    if (flag == 1) {
         return [
             {
-                "current": 0,
-                "pagePath": "/pages/trader/index/index",
-                "text": "首页",
-                "iconPath": "/images/icon_home.png",
-                "selectedIconPath": "/images/icon_home_active.png"
+                "pagePath": "/pages/shop/mall/mall",
+                "text": "商城",
+                "iconPath": "images/tabbar/shop.png",
+                "selectedIconPath": "images/tabbar/shop_in.png"
             },
             {
-                "current": 0,
-                "pagePath": "/pages/goods_cate/goods_cate",
+                "pagePath": "/pages/shop/seller/seller",
                 "text": "分类",
-                "iconPath": "/images/icon_catalog.png",
-                "selectedIconPath": "/images/icon_catalog_active.png"
-
+                "iconPath": "images/tabbar/shop_cate.png",
+                "selectedIconPath": "images/tabbar/shop_cate_in.png"
             },
             {
-                "current": 0,
-                "pagePath": "/pages/cart/cart",
+                "pagePath": "/pages/shop/bcart/index",
                 "text": "购物车",
-                "iconPath": "/images/icon_cart.png",
-                "selectedIconPath": "/images/icon_cart_active.png"
+                "iconPath": "images/tabbar/shop_cart.png",
+                "selectedIconPath": "images/tabbar/shop_cart_in.png"
             },
             {
-                "current": 0,
-                "pagePath": "/pages/myinfo/myinfo",
+                "pagePath": "/pages/user/index/index",
                 "text": "我的",
-                "iconPath": "/images/icon_member.png",
-                "selectedIconPath": "/images/icon_member_active.png"
+                "iconPath": "images/tabbar/user.png",
+                "selectedIconPath": "images/tabbar/user_in.png"
+            },
+            {
+                "pagePath": "/pages/user/openShop/openShop",
+                "text": "申请开店",
+                "iconPath": "images/tabbar/set-up-shop.png",
+                "selectedIconPath": "images/tabbar/set-up-shop.png"
             }
         ]
-    } else if(flag == 2){
+    } else if (flag == 2) {
         return [
             {
-                "current": 0,
-                "pagePath": "/pages/trader/index/index",
-                "text": "首页",
-                "iconPath": "/images/icon_home.png",
-                "selectedIconPath": "/images/icon_home_active.png"
+                "pagePath": "/pages/myGoods/goodsList/goodsList",
+                "text": "我的商品",
+                "iconPath": "images/tabbar/sellgoods.png",
+                "selectedIconPath": "images/tabbar/sellgoods_r.png"
             },
             {
-                "current": 0,
-                "pagePath": "/pages/goods_cate/goods_cate",
-                "text": "分类",
-                "iconPath": "/images/icon_catalog.png",
-                "selectedIconPath": "/images/icon_catalog_active.png"
-
+                "pagePath": "/pages/orderManage/orderManage",
+                "text": "订单管理",
+                "iconPath": "images/tabbar/order.png",
+                "selectedIconPath": "images/tabbar/order_r.png"
             },
             {
-                "current": 0,
-                "pagePath": "/pages/cart/cart",
-                "text": "购物车",
-                "iconPath": "/images/icon_cart.png",
-                "selectedIconPath": "/images/icon_cart_active.png"
+                "pagePath": "/pages/moneyManage/moneyManage",
+                "text": "财务管理",
+                "iconPath": "images/tabbar/money.png",
+                "selectedIconPath": "images/tabbar/money_r.png"
             },
             {
-                "current": 0,
-                "pagePath": "/pages/trader/user/user",
-                "text": "我的",
-                "iconPath": "/images/icon_member.png",
-                "selectedIconPath": "/images/icon_member_active.png"
+                "pagePath": "/pages/myself/myself",
+                "text": "我的商户",
+                "iconPath": "images/tabbar/people.png",
+                "selectedIconPath": "images/tabbar/people_r.png"
             }
         ]
     }
 
 }
 //tabbar 主入口
-function tabbarmain(bindName = "tabdata", id, target,flag) {
+function tabbarmain(bindName = "tabdata", id, target, flag) {
     var that = target;
     var bindData = {};
     var otabbar = tabbarinit(flag);
@@ -79,27 +75,6 @@ function tabbarmain(bindName = "tabdata", id, target,flag) {
     that.setData({ bindData });
 }
 
-/**
- * 菜单栏
- */
-// function selectNavinit(){
-//     return {
-//         'nav':['营业额','净利润'],
-//         'list':[
-//             ['一月','二月', '三月'],
-//             ['一月', '二月', '三月']
-//         ],
-//     }
-// }
-// function selectNav(bindName = "selectNav", target) {
-//     let that = target;
-//     let bindData = {};
-//     let otabbar = selectNavinit();
-//     bindData[bindName] = otabbar;
-//     that.setData({ bindData });
-// }
-
 module.exports = {
-    tabbar: tabbarmain,
-    // selectNav: selectNav
+    tabbar: tabbarmain
 }

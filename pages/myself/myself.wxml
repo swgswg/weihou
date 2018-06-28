@@ -49,7 +49,7 @@
         <label class="lineSpace"></label>
     </view>
     <view class="cell">
-        <image class="cellImage" src="/images/address.png"></image>
+        <image class="cellImage" src="/images/address2.png"></image>
         <text class="cellTitle" >商家地址</text>
         <text class="cellContent">{{shopInfo.shop_addr}}</text>
         <label class="lineSpace"></label>

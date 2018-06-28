@@ -1,7 +1,7 @@
 const app = getApp();
 const util = require('../../../utils/util.js');
 const urlData = require('../../../utils/urlData.js');
-const funData = require('../../../utils/functionData.js');
+const funData = require('../../../utils/functionMethodData.js');
 Page({
     data: {
         order: null,
@@ -17,28 +17,33 @@ Page({
         accomplish: 5,       // 5评价完成
         exchange_goods: 6,   // 6换货
         return_of_goods: 7,  // 7退货
+        timer:'',
     },
     onLoad: function (options) {
-        console.log(options.order_uuid)
+        // console.log(options.order_uuid)
         let that = this;
         // 页面初始化 options为页面跳转所带来的参数
         funData.getOrderDetail(options.order_uuid, that, (data) => {
-            console.log(data);
+            // console.log(data);
             let order = funData.dealOrderData(data);
             // console.log(order);
             that.setData({
                 order:order[0],
                 hasData:true
             });
+            // 未付款倒计时
+            if (order[0].status == 1) {
+                timer: util.mytimer('2018-06-28 12:12:12',that)
+            }
         });
-
+        
 
     },
     onReady: function () {
-        // 页面渲染完成
+       
     },
     onShow: function () {
-        // 页面显示
+           // 页面显示
     },
     onHide: function () {
         // 页面隐藏

@@ -44,7 +44,7 @@
     <!--list start-->
     <view class="malllist">
         <block wx:if="{{goods_data && goods_data != '' && goods_data != null}}">
-            <scroll-view scroll-y="true" style='width:100%;height:920rpx;' bindscrolltolower="scrollToLower" scroll-top="{{scrollTop}}" 
+            <scroll-view scroll-y="true" style='width:100%;height:920rpx;' bindscrolltolower="scrollToLower" bindscrolltoupper="scrollToUpper" scroll-top="{{scrollTop}}" 
                 scroll-with-animation="true">
                 <block wx:for="{{goods_data}}" wx:key="{{item.goodsId}}">
                     <view class="m-item flex" id="{{item.goodsId}}">

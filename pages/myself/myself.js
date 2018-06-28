@@ -1,7 +1,7 @@
 //获取应用实例
 var app = getApp();
 const urlData = require('../../utils/urlData.js');
-const funData = require('../../utils/functionData.js');
+const funData = require('../../utils/functionMethodData.js');
 const util = require('../../utils/util.js');
 
 Page({
@@ -101,7 +101,7 @@ Page({
         var that = this
         // 查询商家信息
         funData.getShopByCode(app.globalData.shopCode, that, (data)=>{
-            console.log(data);
+            // console.log(data);
             let card = data.card;
             // 银行卡号用*替换
             card.card_no = util.bankCardByStar(card.card_no);
@@ -112,7 +112,6 @@ Page({
                 hasData:true
             });
         });
-       
     },
     
     /**

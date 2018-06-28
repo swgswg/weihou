@@ -2,7 +2,7 @@ const _wxcharts = require('../../../utils/wxcharts');
 const template = require('../../../template/template.js');
 const app = getApp();
 const urlData = require('../../../utils/urlData.js');
-const funData = require('../../../utils/functionData.js');
+const funData = require('../../../utils/functionMethodData.js');
 const util = require('../../../utils/util.js');
 var lineChart = null;
 var startPos = null;
@@ -12,7 +12,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        start:null,
+        start: '2018-6-01',
         end:null,
         currentNav:'month',
         Range:null,
@@ -20,7 +20,6 @@ Page({
         deviceW: 0,
         deviceH: 0,
         currtab: 0,
-        start:'2018-6-01'
     },
 
     /**
